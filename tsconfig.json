@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "incremental": true,
+
+    "target": "ES2022",
+    "module": "CommonJS",
+    "outDir": "dist",
+
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "preserveSymlinks": true,
+    "forceConsistentCasingInFileNames": true,
+
+    "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "strictBindCallApply": true,
+    "strictPropertyInitialization": true,
+    "noImplicitThis": true,
+    "useUnknownInCatchVariables": true,
+    "alwaysStrict": true,
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "exactOptionalPropertyTypes": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "noUncheckedIndexedAccess": true,
+    "noImplicitOverride": true,
+
+    "skipDefaultLibCheck": true,
+    "skipLibCheck": true,
+    "plugins": [{ "name": "@kitajs/ts-plugin" }]
+  },
+  "include": ["src"]
+}

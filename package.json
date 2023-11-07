@@ -1,0 +1,36 @@
+{
+  "name": "@kitajs/keddit",
+  "private": true,
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kitajs/keddit.git"
+  },
+  "author": "Arthur Fiorette <me@arthur.place>",
+  "license": "MIT",
+  "dependencies": {
+    "@kitajs/runtime": "^1.1.11",
+    "drizzle-orm": "^0.28.6",
+    "fastify": "^4.24.3",
+    "pino-pretty": "^10.2.3",
+    "postgres": "^3.4.3"
+  },
+  "devDependencies": {
+    "@arthurfiorette/prettier-config": "^1.0.12",
+    "@kitajs/cli": "^1.1.20",
+    "@kitajs/ts-plugin": "^1.1.15",
+    "@types/node": "^20.8.10",
+    "concurrently": "^8.2.2",
+    "drizzle-kit": "^0.19.13",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
+  },
+  "scripts": {
+    "format": "prettier --write .",
+    "start": "node dist/index.js",
+    "dev": "concurrently --names 'Tsc,Kit,Srv' -c 'grey,grey,bgBlue' 'tsc --watch' 'kita watch' 'node --watch dist/index.js'",
+    "build": "kita build && tsc",
+    "test": "kita build --dry-run && tsc --noEmit"
+  }
+}
