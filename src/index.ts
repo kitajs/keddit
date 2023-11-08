@@ -1,5 +1,6 @@
 globalThis.KITA_PROJECT_ROOT = __dirname;
 
+import fastifyEtag from '@fastify/etag';
 import fastifyFormbody from '@fastify/formbody';
 import fastifyJwt from '@fastify/jwt';
 import '@kitajs/html/htmx';
@@ -11,7 +12,7 @@ import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import fastify from 'fastify';
 import path from 'path';
 import postgres from 'postgres';
-import { queries, schema } from './db';
+import { schema } from './db';
 import { Env } from './env';
 
 const app = fastify({
@@ -19,9 +20,7 @@ const app = fastify({
     level: Env.LOG_LEVEL
   },
   ajv: {
-    customOptions: {
-      formats: [addFormats]
-    }
+    plugins: [addFormats]
   }
 });
 
@@ -44,7 +43,7 @@ app.decorate(
   })
 );
 
-app.decorate('queries', queries(app.drizzle));
+app.register(fastifyEtag)
 
 app.register(fastifyFormbody);
 

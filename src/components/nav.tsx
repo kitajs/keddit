@@ -6,7 +6,9 @@ export function Nav({ user }: { user?: UserWithoutPassword }) {
     <nav>
       <ul>
         <li>
-          <strong>Keddit</strong>
+          <a href='/'>
+            <strong>Keddit</strong>
+          </a>
         </li>
       </ul>
       <ul>

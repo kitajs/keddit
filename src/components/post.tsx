@@ -1,5 +1,6 @@
 import Html from '@kitajs/html';
-import { Queries } from '../db';
+import { desc, eq } from 'drizzle-orm';
+import { Database, posts, users } from '../db';
 import { LimitOffset } from '../models';
 import { Locale } from '../providers/locale';
 
@@ -32,20 +33,25 @@ export async function Post(
 }
 
 export async function PostList({
-  queries,
+  db,
   limit,
   offset,
   authenticated
-}: { queries: Queries; authenticated: boolean } & LimitOffset) {
-  const posts = await queries.listPostsJoinAuthor(limit, offset);
+}: { db: Database, authenticated: boolean } & LimitOffset) {
+  const query = await db.select()
+  .from(posts)
+  .innerJoin(users, eq(posts.authorId, users.id))
+  .limit(limit)
+  .offset(offset)
+  .orderBy(desc(posts.createdAt))
 
-  if (posts.length === 0) {
+  if (query.length === 0) {
     return <p>There are no more posts.</p>;
   }
 
   return (
     <>
-      {posts.map((post) => (
+      {query.map((post) => (
         <li>
           <Post
             author={post.users.name}

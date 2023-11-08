@@ -1,14 +1,15 @@
 import { httpErrors } from '@fastify/sensible';
 import { ProviderGenerics, RouteSchema } from '@kitajs/runtime';
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { UserWithoutPassword } from '../db';
+import { UserWithoutPassword, users } from '../db';
+import { eq } from 'drizzle-orm';
 
 export type Authorized<Force extends boolean = true> = {
   user: Force extends true ? UserWithoutPassword : UserWithoutPassword | undefined;
 };
 
 export default async function (
-  { jwt, queries }: FastifyInstance,
+  { jwt, drizzle }: FastifyInstance,
   { headers }: FastifyRequest,
   [force = true]: ProviderGenerics<[boolean]>
 ): Promise<Authorized<boolean>> {
@@ -42,7 +43,10 @@ export default async function (
     throw httpErrors.unauthorized('Invalid token');
   }
 
-  const user = await queries.getUserById(userId);
+  const [user] = await drizzle.select()
+  .from(users)
+  .where(eq(users.id,userId))
+  .limit(1)
 
   if (!user) {
     throw httpErrors.expectationFailed('User not found');
@@ -63,7 +67,7 @@ export function transformSchema(schema: RouteSchema): RouteSchema {
     description: 'Bearer token'
   };
 
-  const security = (schema.security ??= []);
+  const security = (schema.security ??= []) as any[];
   security.push({ default: [] });
 
   return schema;

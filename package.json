@@ -10,10 +10,11 @@
   "author": "Arthur Fiorette <me@arthur.place>",
   "license": "MIT",
   "dependencies": {
+    "@fastify/etag": "^4.2.0",
     "@fastify/formbody": "^7.4.0",
     "@fastify/jwt": "^7.2.2",
     "@fastify/sensible": "^5.5.0",
-    "@kitajs/html": "^3.0.7",
+    "@kitajs/html": "^3.0.8",
     "@kitajs/runtime": "^1.1.11",
     "ajv-formats": "^2.1.1",
     "argon2": "^0.31.2",
@@ -40,7 +41,7 @@
   "scripts": {
     "format": "prettier --write .",
     "start": "node dist/index.js",
-    "dev": "concurrently --names 'Tsc,Kit,Srv' -c 'grey,grey,bgBlue' 'tsc --watch --preserveWatchOutput' 'kita watch' 'node --watch dist/index.js | pino-pretty'",
+    "dev": "concurrently --restart-tries -1 --names 'Tsc,Kit,Srv' -c 'grey,grey,bgBlue' 'tsc --watch --preserveWatchOutput' 'kita watch' 'node --watch dist/index.js | pino-pretty'",
     "build": "kita build && tsc",
     "test": "kita build --dry-run && tsc --noEmit",
     "migrate": "drizzle-kit generate:pg --config drizzle.config.js",

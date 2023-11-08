@@ -2,6 +2,8 @@ import { Query } from '@kitajs/runtime';
 import { FastifyInstance } from 'fastify';
 import { LimitOffset } from '../../../../models';
 import { Authorized } from '../../../../providers/auth';
+import { eq, desc } from 'drizzle-orm';
+import { posts } from '../../../../db';
 
 /**
  * @tag Users
@@ -9,9 +11,14 @@ import { Authorized } from '../../../../providers/auth';
  * @operationId getMePosts
  */
 export async function get(
-  { queries }: FastifyInstance,
+  { drizzle }: FastifyInstance,
   { user }: Authorized,
   query: Query<LimitOffset>
 ) {
-  return queries.listPostsByAuthorId(user.id, query.limit, query.offset);
+ return drizzle .select()
+    .from(posts)
+    .where(eq(posts.authorId,user.id))
+    .limit(query.limit)
+    .offset(query.offset)
+    .orderBy(desc(posts.createdAt))
 }

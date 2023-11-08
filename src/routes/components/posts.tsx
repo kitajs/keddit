@@ -6,7 +6,7 @@ import { LimitOffset } from '../../models';
 import { Authorized } from '../../providers/auth';
 
 export async function get(
-  { queries }: FastifyInstance,
+  { drizzle }: FastifyInstance,
   {}: Authorized,
   { limit, offset }: Query<LimitOffset>,
   { headers }: FastifyRequest
@@ -15,5 +15,5 @@ export async function get(
     return 'This route can only be accessed via htmx';
   }
 
-  return <PostList queries={queries} limit={limit} offset={offset} authenticated />;
+  return <PostList db={drizzle} limit={limit} offset={offset} authenticated />;
 }

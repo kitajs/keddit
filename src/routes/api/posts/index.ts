@@ -4,14 +4,19 @@ import { FastifyInstance } from 'fastify';
 import { CreatePost, posts } from '../../../db';
 import { LimitOffset } from '../../../models';
 import { Authorized } from '../../../providers/auth';
+import { desc } from 'drizzle-orm';
 
 /**
  * @tag Posts
  * @summary Get posts
  * @operationId getPosts
  */
-export async function get({ queries }: FastifyInstance, filter: Query<LimitOffset>) {
-  return queries.listPosts(filter.limit, filter.offset);
+export async function get({ drizzle }: FastifyInstance, filter: Query<LimitOffset>) {
+  return drizzle .select()
+  .from(posts)
+  .limit(filter.limit)
+  .offset(filter.offset)
+  .orderBy(desc(posts.createdAt));
 }
 
 /**

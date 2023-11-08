@@ -49,10 +49,10 @@ export async function post(
     reply.header('Set-Cookie', `token=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0;`);
 
     return (
-      <Layout>
+      <>
         <div>Invalid email or password</div>
         <a href='/login'>Login</a>
-      </Layout>
+      </>
     );
   }
 

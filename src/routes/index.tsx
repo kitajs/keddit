@@ -6,16 +6,13 @@ import { Layout } from '../components/layout';
 import { Nav } from '../components/nav';
 import { PostList } from '../components/post';
 import { Authorized } from '../providers/auth';
-import { FastifyRequest } from 'fastify/types/request';
 
 export async function get(
-  { queries }: FastifyInstance,
+  { drizzle }: FastifyInstance,
   rid: SuspenseId,
-  { user }: Authorized<false>,
-  request: FastifyRequest
+  { user }: Authorized<false>
 ) {
-  console.log(request.headers);
-
+  
   return (
     <Layout>
       <Nav user={user} />
@@ -33,7 +30,7 @@ export async function get(
               <div safe>{String(err.message)}</div>
             </li>
           )}>
-          <PostList queries={queries} limit={30} offset={0} authenticated={!!user} />
+          <PostList db={drizzle} limit={30} offset={0} authenticated={!!user} />
         </Suspense>
       </ul>
     </Layout>
