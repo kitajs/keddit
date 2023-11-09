@@ -1,10 +1,10 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body, Query } from '@kitajs/runtime';
+import { desc } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
 import { CreatePost, posts } from '../../../db';
 import { LimitOffset } from '../../../models';
 import { Authorized } from '../../../providers/auth';
-import { desc } from 'drizzle-orm';
 
 /**
  * @tag Posts
@@ -12,11 +12,12 @@ import { desc } from 'drizzle-orm';
  * @operationId getPosts
  */
 export async function get({ drizzle }: FastifyInstance, filter: Query<LimitOffset>) {
-  return drizzle .select()
-  .from(posts)
-  .limit(filter.limit)
-  .offset(filter.offset)
-  .orderBy(desc(posts.createdAt));
+  return drizzle
+    .select()
+    .from(posts)
+    .limit(filter.limit)
+    .offset(filter.offset)
+    .orderBy(desc(posts.createdAt));
 }
 
 /**

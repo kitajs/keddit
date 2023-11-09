@@ -1,8 +1,8 @@
 import { httpErrors } from '@fastify/sensible';
 import { ProviderGenerics, RouteSchema } from '@kitajs/runtime';
+import { eq } from 'drizzle-orm';
 import { FastifyInstance, FastifyRequest } from 'fastify';
 import { UserWithoutPassword, users } from '../db';
-import { eq } from 'drizzle-orm';
 
 export type Authorized<Force extends boolean = true> = {
   user: Force extends true ? UserWithoutPassword : UserWithoutPassword | undefined;
@@ -43,10 +43,7 @@ export default async function (
     throw httpErrors.unauthorized('Invalid token');
   }
 
-  const [user] = await drizzle.select()
-  .from(users)
-  .where(eq(users.id,userId))
-  .limit(1)
+  const [user] = await drizzle.select().from(users).where(eq(users.id, userId)).limit(1);
 
   if (!user) {
     throw httpErrors.expectationFailed('User not found');
@@ -58,15 +55,6 @@ export default async function (
 }
 
 export function transformSchema(schema: RouteSchema): RouteSchema {
-  const headers = (schema.headers ??= {});
-
-  headers.type ??= 'object';
-  headers.properties ??= {};
-  headers.properties['authorization'] ??= {
-    type: 'string',
-    description: 'Bearer token'
-  };
-
   const security = (schema.security ??= []) as any[];
   security.push({ default: [] });
 

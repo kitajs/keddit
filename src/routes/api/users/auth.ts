@@ -15,7 +15,7 @@ export async function post(
   { drizzle, jwt }: FastifyInstance,
   httpErrors: HttpErrors,
   reply: FastifyReply,
-  {email,password}: Body<Login>
+  { email, password }: Body<Login>
 ) {
   const [user] = await drizzle
     .select()

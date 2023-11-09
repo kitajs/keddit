@@ -1,22 +1,20 @@
 export interface LimitOffset {
   /**
-   * @minimum 1
-   * @maximum 30
    * @default 30
+   * @minimum 1
+   * @maximum 100
    */
   limit: number;
 
   /**
-   * @minimum 0
    * @default 0
+   * @minimum 0
    */
   offset: number;
 }
 
 export interface Login {
-  /**
-   * @format email
-   */
+  /** @format email */
   email: string;
 
   /**

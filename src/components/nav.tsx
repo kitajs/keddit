@@ -6,23 +6,28 @@ export function Nav({ user }: { user?: UserWithoutPassword }) {
     <nav>
       <ul>
         <li>
-          <a href='/'>
+          <a href="/" class="contrast">
             <strong>Keddit</strong>
           </a>
         </li>
       </ul>
       <ul>
         {user ? (
-          <li>
-            <div safe>Logged in as {user.name}</div>{' '}
-          </li>
+          <>
+            <li>
+              <div safe>Logged in as {user.name}</div>{' '}
+            </li>
+            <li>
+              <a href="/logout">Logout</a>
+            </li>
+          </>
         ) : (
           <>
             <li>
-              <a href='/login'>Login</a>
+              <a href="/login">Login</a>
             </li>
             <li>
-              <a href='/register'>Register</a>
+              <a href="/register">Register</a>
             </li>
           </>
         )}

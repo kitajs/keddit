@@ -1,8 +1,8 @@
-import { FastifyInstance } from 'fastify';
-import { Authorized } from '../../../../providers/auth';
 import { Body } from '@kitajs/runtime';
-import { UpdateUser, UserWithoutPassword, users } from '../../../../db';
 import { eq } from 'drizzle-orm';
+import { FastifyInstance } from 'fastify';
+import { UpdateUser, UserWithoutPassword, users } from '../../../../db';
+import { Authorized } from '../../../../providers/auth';
 
 /**
  * @tag Users

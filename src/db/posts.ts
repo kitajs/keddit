@@ -3,16 +3,27 @@ import { date, integer, pgTable, serial, text } from 'drizzle-orm/pg-core';
 import { users } from './users';
 
 export type Post = typeof posts.$inferSelect;
+
 export type CreatePost = {
   /**
    * @minLength 5
+   * @maxLength 50
    */
   title: string;
 
   /**
    * @minLength 10
+   * @maxLength 300
    */
   body: string;
+};
+
+export type PostWithAuthor = {
+  title: string;
+  body: string;
+  createdAt: string;
+  author: string;
+  id: number;
 };
 
 export const posts = pgTable('posts', {

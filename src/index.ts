@@ -20,12 +20,13 @@ const app = fastify({
     level: Env.LOG_LEVEL
   },
   ajv: {
-    plugins: [addFormats]
+    customOptions: {
+      formats: [addFormats]
+    }
   }
 });
 
 const pg = postgres(Env.DATABASE_URL, {
-  max: 1,
   onnotice(query) {
     app.log.trace(query.message);
   }
@@ -43,7 +44,7 @@ app.decorate(
   })
 );
 
-app.register(fastifyEtag)
+app.register(fastifyEtag);
 
 app.register(fastifyFormbody);
 
@@ -91,6 +92,8 @@ app.listen({ port: Env.PORT }, async (err) => {
     process.exit(1);
   }
 
-  await migrate(app.drizzle, { migrationsFolder: path.resolve(__dirname, '../drizzle') });
+  await migrate(app.drizzle, {
+    migrationsFolder: path.resolve(__dirname, '../drizzle')
+  });
   app.log.info('Migration complete!');
 });

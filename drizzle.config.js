@@ -1,6 +1,6 @@
 require('dotenv/config');
 
-/** @type {import("drizzle-kit").Config} */
+/** @type {import('drizzle-kit').Config} */
 module.exports = {
   schema: './src/db/schema.ts',
   out: './drizzle',

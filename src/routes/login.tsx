@@ -1,5 +1,5 @@
 import Html from '@kitajs/html';
-import { Body } from '@kitajs/runtime';
+import { Body, Query } from '@kitajs/runtime';
 import { verify } from 'argon2';
 import { eq } from 'drizzle-orm';
 import { FastifyInstance, FastifyReply } from 'fastify';
@@ -9,22 +9,36 @@ import { users } from '../db';
 import { Login } from '../models';
 import { Authorized } from '../providers/auth';
 
-export async function get(reply: FastifyReply, { user }: Authorized<false>) {
+export async function get(
+  reply: FastifyReply,
+  { user }: Authorized<false>,
+  email?: Query,
+  next: Query = '/'
+) {
   if (user) {
-    return reply.redirect(302, '/');
+    reply.header('hx-redirect', '/');
+    return <div>Redirecting...</div>;
   }
 
   return (
     <Layout>
       <Nav />
 
-      <form method='post' hx-post='/login' hx-swap='outerHTML'>
-        <input type='text' name='email' placeholder='Email' required />
-        <input type='password' name='password' placeholder='Password' required />
-        <button type='submit' class='secondary'>
-          Post
-        </button>
-      </form>
+      <article>
+        <form method="post" hx-post={`/login?next=${next}`}>
+          <input type="email" name="email" placeholder="Email" required value={email} />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            min="8"
+          />
+          <button type="submit" class="secondary">
+            Register
+          </button>
+        </form>
+      </article>
     </Layout>
   );
 }
@@ -32,7 +46,8 @@ export async function get(reply: FastifyReply, { user }: Authorized<false>) {
 export async function post(
   { drizzle, jwt }: FastifyInstance,
   reply: FastifyReply,
-  body: Body<Login>
+  body: Body<Login>,
+  next: Query = '/'
 ) {
   const [user] = await drizzle
     .select()
@@ -51,7 +66,7 @@ export async function post(
     return (
       <>
         <div>Invalid email or password</div>
-        <a href='/login'>Login</a>
+        <a href="/login">Login</a>
       </>
     );
   }
@@ -64,5 +79,7 @@ export async function post(
     `token=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${60 * 60 * 24};`
   );
 
-  return reply.redirect(302, '/');
+  reply.header('hx-redirect', next);
+
+  return <div>Redirecting...</div>;
 }
