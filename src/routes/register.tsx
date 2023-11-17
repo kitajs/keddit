@@ -1,10 +1,10 @@
 import Html from '@kitajs/html';
-import { Body, Query } from '@kitajs/runtime';
-import { hash } from 'argon2';
+import { Body, Query, Use } from '@kitajs/runtime';
 import { FastifyInstance, FastifyReply } from 'fastify';
-import { Layout } from '../components/layout';
-import { Nav } from '../components/nav';
-import { CreateUser, users } from '../db';
+import { CreateUser } from '../users/model';
+import { createUser } from '../users/service';
+import { Layout } from '../utils/components/layout';
+import { Nav } from '../utils/components/nav';
 
 export async function get(name?: Query, email?: Query) {
   return (
@@ -22,8 +22,9 @@ export async function get(name?: Query, email?: Query) {
             min="8"
             required
           />
+
           <button type="submit" class="secondary">
-            Login
+            Register now
           </button>
         </form>
       </article>
@@ -32,30 +33,25 @@ export async function get(name?: Query, email?: Query) {
 }
 
 export async function post(
-  { drizzle }: FastifyInstance,
+  this: Use<[]>,
+  { prisma, log }: FastifyInstance,
   reply: FastifyReply,
   body: Body<CreateUser>
 ) {
-  try {
-    body.password = await hash(body.password);
+  const [error, user] = await createUser(prisma, body);
 
-    const user = await drizzle
-      .insert(users)
-      .values(body)
-      .returning()
-      .then((rows) => rows[0]!);
-
+  if (user) {
     reply.header('hx-redirect', `/login?email=${user.email}`);
     return <div>Redirecting...</div>;
-  } catch (error: any) {
-    if (error.constraint_name === 'users_email_unique') {
-      reply.header(
-        'hx-redirect',
-        `/register?name=${body.name}&email=Email already exists`
-      );
-      return <div>Redirecting...</div>;
-    }
-
-    throw error;
   }
+
+  if (error.code === 'P2002') {
+    reply.header('hx-redirect', `/register?name=${body.name}&email=Email already exists`);
+    return <div>Redirecting...</div>;
+  }
+
+  log.error(error);
+  reply.header('hx-redirect', `/register?name=Unknown error...`);
+
+  return <div>Redirecting...</div>;
 }

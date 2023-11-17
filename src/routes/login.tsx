@@ -1,13 +1,11 @@
 import Html from '@kitajs/html';
 import { Body, Query } from '@kitajs/runtime';
-import { verify } from 'argon2';
-import { eq } from 'drizzle-orm';
 import { FastifyInstance, FastifyReply } from 'fastify';
-import { Layout } from '../components/layout';
-import { Nav } from '../components/nav';
-import { users } from '../db';
-import { Login } from '../models';
 import { Authorized } from '../providers/auth';
+import { JWT_EXPIRES_SECONDS, createUserJwt, verifyUserPassword } from '../users/auth';
+import { EmailAndPassword } from '../users/model';
+import { Layout } from '../utils/components/layout';
+import { Nav } from '../utils/components/nav';
 
 export async function get(
   reply: FastifyReply,
@@ -16,7 +14,7 @@ export async function get(
   next: Query = '/'
 ) {
   if (user) {
-    reply.header('hx-redirect', '/');
+    reply.header('hx-redirect', next);
     return <div>Redirecting...</div>;
   }
 
@@ -32,7 +30,7 @@ export async function get(
             name="password"
             placeholder="Password"
             required
-            min="8"
+            minlength="8"
           />
           <button type="submit" class="secondary">
             Register
@@ -44,24 +42,25 @@ export async function get(
 }
 
 export async function post(
-  { drizzle, jwt }: FastifyInstance,
+  { prisma, jwt }: FastifyInstance,
   reply: FastifyReply,
-  body: Body<Login>,
+  body: Body<EmailAndPassword>,
   next: Query = '/'
 ) {
-  const [user] = await drizzle
-    .select()
-    .from(users)
-    .where(eq(users.email, body.email))
-    .limit(1);
+  const user = await prisma.user.findUnique({
+    where: { email: body.email },
+    select: {
+      id: true,
+      password: true
+    }
+  });
 
   if (
     !user ||
     // Invalid password
-    !(await verify(user.password, body.password))
+    !(await verifyUserPassword(user.password, body.password))
   ) {
-    // Clear the cookie
-    reply.header('Set-Cookie', `token=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0;`);
+    reply.clearCookie('token');
 
     return (
       <>
@@ -71,13 +70,14 @@ export async function post(
     );
   }
 
-  const token = jwt.sign({ userId: user.id }, { expiresIn: '1d' });
+  const token = createUserJwt(jwt, user);
 
-  // Http only cookies are sent automatically by the browser
-  reply.header(
-    'Set-Cookie',
-    `token=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${60 * 60 * 24};`
-  );
+  reply.setCookie('token', token, {
+    httpOnly: true,
+    path: '/',
+    sameSite: 'strict',
+    maxAge: JWT_EXPIRES_SECONDS
+  });
 
   reply.header('hx-redirect', next);
 

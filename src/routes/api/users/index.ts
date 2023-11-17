@@ -1,8 +1,8 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body } from '@kitajs/runtime';
-import { hash } from 'argon2';
-import type { FastifyInstance } from 'fastify';
-import { CreateUser, UserWithoutPassword, users } from '../../../db';
+import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { CreateUser } from '../../../users/model';
+import { createUser } from '../../../users/service';
 
 /**
  * @tag Users
@@ -10,23 +10,28 @@ import { CreateUser, UserWithoutPassword, users } from '../../../db';
  * @operationId createUser
  */
 export async function post(
-  { drizzle }: FastifyInstance,
+  { prisma }: FastifyInstance,
+  { log }: FastifyRequest,
   errors: HttpErrors,
+  reply: FastifyReply,
   body: Body<CreateUser>
-): Promise<UserWithoutPassword> {
-  try {
-    body.password = await hash(body.password);
+) {
+  const [error, user] = await createUser(prisma, body);
 
-    return await drizzle
-      .insert(users)
-      .values(body)
-      .returning()
-      .then((rows) => rows[0]!);
-  } catch (error: any) {
-    if (error.constraint_name === 'users_email_unique') {
-      throw errors.conflict('Email already registered!');
-    }
+  if (user) {
+    // FIXME: Prisma does not have an easy way to hide fields for now...
+    // https://github.com/prisma/prisma/issues/5042
+    user.password = '';
 
-    throw error;
+    reply.status(201);
+
+    return user;
   }
+
+  if (error.code === 'P202') {
+    throw errors.conflict('Email already registered!');
+  }
+
+  log.error(error);
+  throw errors.internalServerError('Something went wrong!');
 }

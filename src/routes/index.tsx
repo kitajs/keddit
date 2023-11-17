@@ -1,15 +1,14 @@
 import Html from '@kitajs/html';
 import { Suspense } from '@kitajs/html/suspense';
-import { Body, SuspenseId } from '@kitajs/runtime';
-import { FastifyInstance, FastifyReply } from 'fastify';
-import { Layout } from '../components/layout';
-import { Nav } from '../components/nav';
-import { PostList } from '../components/post-list';
-import { CreatePost, posts } from '../db';
+import { SuspenseId } from '@kitajs/runtime';
+import { FastifyInstance } from 'fastify';
 import { Authorized } from '../providers/auth';
+import { Layout } from '../utils/components/layout';
+import { Nav } from '../utils/components/nav';
+import { PostList } from '../utils/components/post-list';
 
 export async function get(
-  { drizzle }: FastifyInstance,
+  { prisma }: FastifyInstance,
   rid: SuspenseId,
   { user }: Authorized<false>
 ) {
@@ -18,7 +17,7 @@ export async function get(
       <Nav user={user} />
 
       <article>
-        <form method="post" hx-post="/" hx-swap="outerHTML">
+        <form method="post" hx-post="/posts" hx-swap="outerHTML">
           <input
             type="text"
             name="title"
@@ -41,7 +40,6 @@ export async function get(
       </article>
 
       <article>
-        {' '}
         <ul>
           <Suspense
             rid={rid}
@@ -55,25 +53,10 @@ export async function get(
               return <li>Something went wrong</li>;
             }}
           >
-            <PostList db={drizzle} limit={30} offset={0} userId={user?.id} />
+            <PostList prisma={prisma} take={30} skip={0} userId={user?.id} />
           </Suspense>
         </ul>
       </article>
     </Layout>
   );
-}
-
-export async function post(
-  { drizzle }: FastifyInstance,
-  { user }: Authorized,
-  reply: FastifyReply,
-  body: Body<CreatePost>
-) {
-  await drizzle.insert(posts).values({
-    ...body,
-    authorId: user.id
-  });
-
-  reply.header('hx-redirect', `/`);
-  return <div>Redirecting...</div>;
 }

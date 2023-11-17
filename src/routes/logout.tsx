@@ -1,10 +1,10 @@
 import Html from '@kitajs/html';
 import { FastifyReply } from 'fastify';
-import { Layout } from '../components/layout';
-import { Nav } from '../components/nav';
+import { Layout } from '../utils/components/layout';
+import { Nav } from '../utils/components/nav';
 
 export async function get(reply: FastifyReply) {
-  reply.header('Set-Cookie', `token=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0;`);
+  reply.clearCookie('token');
 
   return (
     <Layout>

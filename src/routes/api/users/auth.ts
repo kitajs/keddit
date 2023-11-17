@@ -1,10 +1,12 @@
 import { HttpErrors } from '@fastify/sensible';
-import { Body } from '@kitajs/runtime';
-import { verify } from 'argon2';
-import { eq } from 'drizzle-orm';
+import { Body, Query } from '@kitajs/runtime';
 import { FastifyInstance, FastifyReply } from 'fastify';
-import { UserWithoutPassword, users } from '../../../db';
-import { Login } from '../../../models';
+import {
+  JWT_EXPIRES_SECONDS,
+  createUserJwt,
+  verifyUserPassword
+} from '../../../users/auth';
+import { EmailAndPassword } from '../../../users/model';
 
 /**
  * @tag Auth
@@ -12,38 +14,45 @@ import { Login } from '../../../models';
  * @operationId login
  */
 export async function post(
-  { drizzle, jwt }: FastifyInstance,
-  httpErrors: HttpErrors,
+  { prisma, jwt }: FastifyInstance,
   reply: FastifyReply,
-  { email, password }: Body<Login>
+  body: Body<EmailAndPassword>,
+  errors: HttpErrors,
+  cookie: Query<boolean> = true
 ) {
-  const [user] = await drizzle
-    .select()
-    .from(users)
-    .where(eq(users.email, email))
-    .limit(1);
+  const user = await prisma.user.findUnique({
+    where: { email: body.email }
+  });
 
   if (
     !user ||
     // Invalid password
-    !(await verify(user.password, password))
+    !(await verifyUserPassword(user.password, body.password))
   ) {
-    // Clear the cookie
-    reply.header('Set-Cookie', `token=; Path=/; HttpOnly; SameSite=Strict; Max-Age=0;`);
+    if (cookie) {
+      reply.clearCookie('token');
+    }
 
-    throw httpErrors.unauthorized('Invalid email or password');
+    throw errors.unauthorized('Invalid email or password');
   }
 
-  const token = jwt.sign({ userId: user.id }, { expiresIn: '1d' });
+  const token = createUserJwt(jwt, user);
 
-  // Http only cookies are sent automatically by the browser
-  reply.header(
-    'Set-Cookie',
-    `token=${token}; Path=/; HttpOnly; SameSite=Strict; Max-Age=${60 * 60 * 24};`
-  );
+  if (cookie) {
+    reply.setCookie('token', token, {
+      httpOnly: true,
+      path: '/',
+      sameSite: 'strict',
+      maxAge: JWT_EXPIRES_SECONDS
+    });
+  }
+
+  // FIXME: Prisma does not have an easy way to hide fields for now...
+  // https://github.com/prisma/prisma/issues/5042
+  user.password = '';
 
   return {
-    token: `Bearer ${token}`,
-    user: user as UserWithoutPassword
+    token: cookie ? undefined : `Bearer ${token}`,
+    user
   };
 }

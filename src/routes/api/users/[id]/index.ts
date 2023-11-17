@@ -1,8 +1,6 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Path } from '@kitajs/runtime';
-import { eq } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
-import { UserWithoutPassword, users } from '../../../../db';
 import { Authorized } from '../../../../providers/auth';
 
 /**
@@ -11,16 +9,22 @@ import { Authorized } from '../../../../providers/auth';
  * @operationId getUser
  */
 export async function get(
-  { drizzle }: FastifyInstance,
-  {}: Authorized,
+  { prisma }: FastifyInstance,
+  _: Authorized,
   errors: HttpErrors,
   id: Path<number>
-): Promise<UserWithoutPassword> {
-  const [user] = await drizzle.select().from(users).where(eq(users.id, id)).limit(1);
+) {
+  const user = await prisma.user.findUnique({
+    where: { id }
+  });
 
   if (!user) {
     throw errors.notFound('User not found');
   }
+
+  // FIXME: Prisma does not have an easy way to hide fields for now...
+  // https://github.com/prisma/prisma/issues/5042
+  user.password = '';
 
   return user;
 }

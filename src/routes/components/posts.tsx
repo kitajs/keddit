@@ -1,19 +1,21 @@
+import { HttpErrors } from '@fastify/sensible';
 import Html from '@kitajs/html';
 import { Query } from '@kitajs/runtime';
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { PostList } from '../../components/post-list';
-import { LimitOffset } from '../../models';
 import { Authorized } from '../../providers/auth';
+import { PostList } from '../../utils/components/post-list';
+import { TakeSkip } from '../../utils/model';
 
 export async function get(
-  { drizzle }: FastifyInstance,
+  { prisma }: FastifyInstance,
   { user }: Authorized,
-  { limit, offset }: Query<LimitOffset>,
-  { headers }: FastifyRequest
+  { take, skip }: Query<TakeSkip>,
+  { headers }: FastifyRequest,
+  errors: HttpErrors
 ) {
   if (!headers['hx-request']) {
-    return 'This route can only be accessed via htmx';
+    throw errors.badRequest('This route is only accessible via htmx');
   }
 
-  return <PostList db={drizzle} limit={limit} offset={offset} userId={user.id} />;
+  return <PostList prisma={prisma} take={take} skip={skip} userId={user.id} />;
 }

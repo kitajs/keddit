@@ -1,2 +1,6 @@
 node_modules
+
 dist
+
+prisma/keddit.db
+prisma/keddit.db-journal

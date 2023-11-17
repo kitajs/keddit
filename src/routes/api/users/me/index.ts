@@ -1,8 +1,7 @@
 import { Body } from '@kitajs/runtime';
-import { eq } from 'drizzle-orm';
-import { FastifyInstance } from 'fastify';
-import { UpdateUser, UserWithoutPassword, users } from '../../../../db';
+import { FastifyInstance, FastifyReply } from 'fastify';
 import { Authorized } from '../../../../providers/auth';
+import { UpdateUser } from '../../../../users/model';
 
 /**
  * @tag Users
@@ -19,14 +18,21 @@ export async function get(auth: Authorized) {
  * @summary Update the current user
  */
 export async function post(
-  { drizzle }: FastifyInstance,
+  { prisma }: FastifyInstance,
   { user }: Authorized,
+  reply: FastifyReply,
   body: Body<UpdateUser>
-): Promise<UserWithoutPassword> {
-  return drizzle
-    .update(users)
-    .set(body)
-    .where(eq(users.id, user.id))
-    .returning()
-    .then((rows) => rows[0]!);
+) {
+  reply.status(204);
+
+  const updated = await prisma.user.update({
+    where: { id: user.id },
+    data: body
+  });
+
+  // FIXME: Prisma does not have an easy way to hide fields for now...
+  // https://github.com/prisma/prisma/issues/5042
+  updated.password = '';
+
+  return updated;
 }

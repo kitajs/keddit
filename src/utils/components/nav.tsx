@@ -1,7 +1,11 @@
 import Html from '@kitajs/html';
-import { UserWithoutPassword } from '../db';
+import { User } from '@prisma/client';
 
-export function Nav({ user }: { user?: UserWithoutPassword }) {
+export interface NavProps {
+  user?: Pick<User, 'name'>;
+}
+
+export function Nav({ user }: NavProps) {
   return (
     <nav>
       <ul>

@@ -1,23 +1,23 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body, Query } from '@kitajs/runtime';
-import { desc } from 'drizzle-orm';
-import { FastifyInstance } from 'fastify';
-import { CreatePost, posts } from '../../../db';
-import { LimitOffset } from '../../../models';
+
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { CreatePost } from '../../../posts/model';
+import { createPost } from '../../../posts/service';
 import { Authorized } from '../../../providers/auth';
+import { TakeSkip } from '../../../utils/model';
 
 /**
  * @tag Posts
  * @summary Get posts
  * @operationId getPosts
  */
-export async function get({ drizzle }: FastifyInstance, filter: Query<LimitOffset>) {
-  return drizzle
-    .select()
-    .from(posts)
-    .limit(filter.limit)
-    .offset(filter.offset)
-    .orderBy(desc(posts.createdAt));
+export async function get({ prisma }: FastifyInstance, filter: Query<TakeSkip>) {
+  return prisma.post.findMany({
+    take: filter.take,
+    skip: filter.skip,
+    orderBy: { createdAt: 'desc' }
+  });
 }
 
 /**
@@ -26,25 +26,20 @@ export async function get({ drizzle }: FastifyInstance, filter: Query<LimitOffse
  * @operationId createPost
  */
 export async function post(
-  { drizzle }: FastifyInstance,
+  { prisma }: FastifyInstance,
   { user }: Authorized,
+  { log }: FastifyRequest,
+  reply: FastifyReply,
   errors: HttpErrors,
   body: Body<CreatePost>
 ) {
-  try {
-    return drizzle
-      .insert(posts)
-      .values({
-        ...body,
-        authorId: user.id
-      })
-      .returning()
-      .then((rows) => rows[0]!);
-  } catch (error: any) {
-    if (error.constraint_name === 'posts_title_unique') {
-      throw errors.conflict('This title was already created!');
-    }
+  const [error, post] = await createPost(prisma, user.id, body);
 
-    throw error;
+  if (post) {
+    reply.status(201);
+    return post;
   }
+
+  log.error(error);
+  throw errors.internalServerError('Something went wrong!');
 }

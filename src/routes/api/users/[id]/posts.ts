@@ -1,9 +1,7 @@
 import { Path, Query } from '@kitajs/runtime';
-import { desc, eq } from 'drizzle-orm';
 import { FastifyInstance } from 'fastify';
-import { posts } from '../../../../db';
-import { LimitOffset } from '../../../../models';
 import { Authorized } from '../../../../providers/auth';
+import { TakeSkip } from '../../../../utils/model';
 
 /**
  * @tag Users
@@ -11,16 +9,15 @@ import { Authorized } from '../../../../providers/auth';
  * @operationId getUserPosts
  */
 export async function get(
-  { drizzle }: FastifyInstance,
-  {}: Authorized<false>,
+  { prisma }: FastifyInstance,
+  _: Authorized<false>,
   id: Path<number>,
-  query: Query<LimitOffset>
+  query: Query<TakeSkip>
 ) {
-  return drizzle
-    .select()
-    .from(posts)
-    .where(eq(posts.authorId, id))
-    .limit(query.limit)
-    .offset(query.offset)
-    .orderBy(desc(posts.createdAt));
+  return prisma.post.findMany({
+    where: { authorId: id },
+    take: query.take,
+    skip: query.skip,
+    orderBy: { createdAt: 'desc' }
+  });
 }

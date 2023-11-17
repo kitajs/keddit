@@ -1,18 +1,16 @@
 globalThis.KITA_PROJECT_ROOT = __dirname;
 
+import '@kitajs/html/htmx';
+
+import fastifyCookie from '@fastify/cookie';
 import fastifyEtag from '@fastify/etag';
 import fastifyFormbody from '@fastify/formbody';
 import fastifyJwt from '@fastify/jwt';
-import '@kitajs/html/htmx';
 import { Kita } from '@kitajs/runtime';
+import { PrismaClient } from '@prisma/client';
 import addFormats from 'ajv-formats';
 import closeWithGrace from 'close-with-grace';
-import { drizzle } from 'drizzle-orm/postgres-js';
-import { migrate } from 'drizzle-orm/postgres-js/migrator';
 import fastify from 'fastify';
-import path from 'path';
-import postgres from 'postgres';
-import { schema } from './db';
 import { Env } from './env';
 
 const app = fastify({
@@ -26,23 +24,20 @@ const app = fastify({
   }
 });
 
-const pg = postgres(Env.DATABASE_URL, {
-  onnotice(query) {
-    app.log.trace(query.message);
+declare module 'fastify' {
+  interface FastifyInstance {
+    prisma: PrismaClient;
   }
-});
+}
 
 app.decorate(
-  'drizzle',
-  drizzle(pg, {
-    schema,
-    logger: {
-      logQuery(query) {
-        app.log.trace(query);
-      }
-    }
+  'prisma',
+  new PrismaClient({
+    datasourceUrl: Env.DATABASE_URL
   })
 );
+
+app.register(fastifyCookie);
 
 app.register(fastifyEtag);
 
@@ -59,10 +54,18 @@ app.register(Kita, {
       openapi: '3.1.0',
       components: {
         securitySchemes: {
-          default: {
+          // https://swagger.io/docs/specification/authentication/bearer-authentication/
+          bearer: {
+            type: 'http',
+            scheme: 'bearer',
+            bearerFormat: 'JWT'
+          },
+
+          // https://swagger.io/docs/specification/authentication/cookie-authentication/
+          cookie: {
             type: 'apiKey',
-            name: 'Authorization',
-            in: 'header'
+            in: 'cookie',
+            name: 'token'
           }
         }
       }
@@ -81,7 +84,7 @@ const closeListeners = closeWithGrace({ delay: 500 }, async function ({ err }) {
 
 // Cancelling the close listeners
 app.addHook('onClose', async () => {
-  await pg.end();
+  await app.prisma.$disconnect();
   closeListeners.uninstall();
 });
 
@@ -92,8 +95,5 @@ app.listen({ port: Env.PORT }, async (err) => {
     process.exit(1);
   }
 
-  await migrate(app.drizzle, {
-    migrationsFolder: path.resolve(__dirname, '../drizzle')
-  });
   app.log.info('Migration complete!');
 });

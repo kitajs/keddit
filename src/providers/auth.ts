@@ -1,23 +1,21 @@
 import { httpErrors } from '@fastify/sensible';
 import { ProviderGenerics, RouteSchema } from '@kitajs/runtime';
-import { eq } from 'drizzle-orm';
+import { User } from '@prisma/client';
 import { FastifyInstance, FastifyRequest } from 'fastify';
-import { UserWithoutPassword, users } from '../db';
+import { verifyUserJwt } from '../users/auth';
 
 export type Authorized<Force extends boolean = true> = {
-  user: Force extends true ? UserWithoutPassword : UserWithoutPassword | undefined;
+  user: Force extends true ? User : User | undefined;
 };
 
 export default async function (
-  { jwt, drizzle }: FastifyInstance,
-  { headers }: FastifyRequest,
+  { jwt, prisma }: FastifyInstance,
+  { headers, cookies }: FastifyRequest,
   [force = true]: ProviderGenerics<[boolean]>
 ): Promise<Authorized<boolean>> {
-  const header =
-    headers.authorization ||
-    headers.cookie?.slice(headers.cookie.indexOf('token=') + 6).split(';', 1)[0];
+  let token = headers.authorization || cookies.token;
 
-  if (!header) {
+  if (!token) {
     if (!force) {
       return { user: undefined };
     }
@@ -25,38 +23,49 @@ export default async function (
     throw httpErrors.unauthorized('Missing authorization header');
   }
 
-  let [type, token] = header.split(' ');
-
-  if (type?.startsWith('Bearer ')) {
-    token = type.slice(7);
-  } else {
-    token = type;
+  if (token.startsWith('Bearer ')) {
+    token = token.slice(7);
   }
 
   if (!token) {
     throw httpErrors.unauthorized('Invalid authorization type');
   }
 
-  const { userId } = await jwt.verify<{ userId: number }>(token);
+  const { userId } = await verifyUserJwt(jwt, token);
 
   if (!userId || typeof userId !== 'number') {
     throw httpErrors.unauthorized('Invalid token');
   }
 
-  const [user] = await drizzle.select().from(users).where(eq(users.id, userId)).limit(1);
+  const user = await prisma.user.findUnique({
+    where: { id: userId }
+  });
 
   if (!user) {
     throw httpErrors.expectationFailed('User not found');
   }
 
-  return {
-    user
-  };
+  // FIXME: Prisma does not have an easy way to hide fields for now...
+  // https://github.com/prisma/prisma/issues/5042
+  user.password = '';
+
+  return { user };
 }
 
 export function transformSchema(schema: RouteSchema): RouteSchema {
-  const security = (schema.security ??= []) as any[];
-  security.push({ default: [] });
+  const security = (schema.security ??= []);
+  const responses = (schema.responses ??= {});
+
+  // Adds Bearer and Cookie security to every route
+  security.push({
+    bearer: [],
+    cookie: []
+  });
+
+  // Adds 401 response to every route
+  responses[401] ??= {
+    description: 'Unauthorized'
+  };
 
   return schema;
 }

@@ -1,5 +1,3 @@
-import 'dotenv/config';
-
 export const Env = {
   PORT: Number(process.env.PORT || 1228),
   DATABASE_URL: String(process.env.DATABASE_URL ?? ''),

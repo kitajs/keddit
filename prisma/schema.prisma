@@ -1,0 +1,29 @@
+generator client {
+  provider = "prisma-client-js"
+  /// Pnpm messes up with prisma
+  output   = "../node_modules/.prisma/client"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  name     String
+  email    String @unique
+  password String
+
+  posts Post[]
+}
+
+model Post {
+  id        Int      @id @default(autoincrement())
+  title     String
+  body      String
+  createdAt DateTime @default(now())
+
+  authorId Int
+  author   User @relation(fields: [authorId], references: [id])
+}
