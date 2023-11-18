@@ -1,17 +1,18 @@
 import { httpErrors } from '@fastify/sensible';
 import { ProviderGenerics, RouteSchema } from '@kitajs/runtime';
 import { User } from '@prisma/client';
-import { FastifyInstance, FastifyRequest } from 'fastify';
+import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
 import { verifyUserJwt } from '../users/auth';
 
-export type Authorized<Force extends boolean = true> = {
-  user: Force extends true ? User : User | undefined;
+export type Authorized<Force extends boolean | 'html' = true> = {
+  user: Force extends true | 'html' ? User : User | undefined;
 };
 
 export default async function (
   { jwt, prisma }: FastifyInstance,
-  { headers, cookies }: FastifyRequest,
-  [force = true]: ProviderGenerics<[boolean]>
+  { headers, cookies, url }: FastifyRequest,
+  [force = true]: ProviderGenerics<[boolean | 'html']>,
+  reply: FastifyReply
 ): Promise<Authorized<boolean>> {
   let token = headers.authorization || cookies.token;
 
@@ -20,7 +21,13 @@ export default async function (
       return { user: undefined };
     }
 
-    throw httpErrors.unauthorized('Missing authorization header');
+    if (force === 'html') {
+      return reply
+        .redirect('/login?next=' + encodeURIComponent(url))
+        .send('Redirecting...');
+    } else {
+      throw httpErrors.unauthorized('Missing authorization header');
+    }
   }
 
   if (token.startsWith('Bearer ')) {
@@ -28,13 +35,25 @@ export default async function (
   }
 
   if (!token) {
-    throw httpErrors.unauthorized('Invalid authorization type');
+    if (force === 'html') {
+      return reply
+        .redirect('/login?next=' + encodeURIComponent(url))
+        .send('Redirecting...');
+    } else {
+      throw httpErrors.unauthorized('Missing authorization header');
+    }
   }
 
   const { userId } = await verifyUserJwt(jwt, token);
 
   if (!userId || typeof userId !== 'number') {
-    throw httpErrors.unauthorized('Invalid token');
+    if (force === 'html') {
+      return reply
+        .redirect('/login?next=' + encodeURIComponent(url))
+        .send('Redirecting...');
+    } else {
+      throw httpErrors.unauthorized('Invalid token');
+    }
   }
 
   const user = await prisma.user.findUnique({
@@ -42,7 +61,13 @@ export default async function (
   });
 
   if (!user) {
-    throw httpErrors.expectationFailed('User not found');
+    if (force === 'html') {
+      return reply
+        .redirect('/login?next=' + encodeURIComponent(url))
+        .send('Redirecting...');
+    } else {
+      throw httpErrors.expectationFailed('User not found');
+    }
   }
 
   // FIXME: Prisma does not have an easy way to hide fields for now...
@@ -57,10 +82,7 @@ export function transformSchema(schema: RouteSchema): RouteSchema {
   const responses = (schema.responses ??= {});
 
   // Adds Bearer and Cookie security to every route
-  security.push({
-    bearer: [],
-    cookie: []
-  });
+  security.push({ bearer: [] }, { cookie: [] });
 
   // Adds 401 response to every route
   responses[401] ??= {

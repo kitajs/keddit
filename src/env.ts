@@ -1,7 +1,7 @@
 export const Env = {
   PORT: Number(process.env.PORT || 1228),
   DATABASE_URL: String(process.env.DATABASE_URL ?? ''),
-  LOG_LEVEL: String(process.env.LOG_LEVEL ?? 'info').toLowerCase(),
+  LOG_LEVEL: String(process.env.LOG_LEVEL ?? 'trace').toLowerCase(),
   JWT_SECRET: String(process.env.JWT_SECRET ?? '')
 };
 

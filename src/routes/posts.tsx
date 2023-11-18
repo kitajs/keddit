@@ -1,9 +1,19 @@
 import Html from '@kitajs/html';
-import { Body } from '@kitajs/runtime';
+import { Body, Query } from '@kitajs/runtime';
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { PostList } from '../components/post-list';
 import { CreatePost } from '../posts/model';
 import { createPost } from '../posts/service';
 import { Authorized } from '../providers/auth';
+import { TakeSkip } from '../utils/model';
+
+export async function get(
+  { prisma }: FastifyInstance,
+  { user }: Authorized<'html'>,
+  { take, skip }: Query<TakeSkip>
+) {
+  return <PostList prisma={prisma} take={take} skip={skip} userId={user.id} />;
+}
 
 export async function post(
   { prisma }: FastifyInstance,
@@ -19,7 +29,6 @@ export async function post(
     log.error(error);
   }
 
-  reply.status(201);
   reply.header('hx-redirect', '/');
   return <div>Redirecting...</div>;
 }

@@ -27,7 +27,10 @@ export async function post(
 
   const updated = await prisma.user.update({
     where: { id: user.id },
-    data: body
+    data: {
+      name: body.name?.trim(),
+      email: body.email?.trim()
+    }
   });
 
   // FIXME: Prisma does not have an easy way to hide fields for now...

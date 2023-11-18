@@ -6,14 +6,16 @@ import fastifyCookie from '@fastify/cookie';
 import fastifyEtag from '@fastify/etag';
 import fastifyFormbody from '@fastify/formbody';
 import fastifyJwt from '@fastify/jwt';
+import fastifyStatic from '@fastify/static';
 import { Kita } from '@kitajs/runtime';
 import { PrismaClient } from '@prisma/client';
 import addFormats from 'ajv-formats';
 import closeWithGrace from 'close-with-grace';
 import fastify from 'fastify';
+import path from 'path';
 import { Env } from './env';
 
-const app = fastify({
+export const app = fastify({
   logger: {
     level: Env.LOG_LEVEL
   },
@@ -24,24 +26,38 @@ const app = fastify({
   }
 });
 
+const prisma = new PrismaClient({
+  datasourceUrl: Env.DATABASE_URL,
+  log: [
+    { emit: 'event', level: 'query' },
+    { emit: 'event', level: 'warn' },
+    { emit: 'event', level: 'info' },
+    { emit: 'event', level: 'error' }
+  ]
+});
+
 declare module 'fastify' {
   interface FastifyInstance {
-    prisma: PrismaClient;
+    prisma: typeof prisma;
   }
 }
 
-app.decorate(
-  'prisma',
-  new PrismaClient({
-    datasourceUrl: Env.DATABASE_URL
-  })
-);
+app.decorate('prisma', prisma);
+
+prisma.$on('error', app.log.error.bind(app.log));
+prisma.$on('info', app.log.debug.bind(app.log));
+prisma.$on('query', app.log.trace.bind(app.log));
+prisma.$on('warn', app.log.warn.bind(app.log));
 
 app.register(fastifyCookie);
 
 app.register(fastifyEtag);
 
 app.register(fastifyFormbody);
+
+app.register(fastifyStatic, {
+  root: path.resolve('public'),
+});
 
 app.register(fastifyJwt, {
   secret: Env.JWT_SECRET
@@ -94,6 +110,4 @@ app.listen({ port: Env.PORT }, async (err) => {
     app.log.error(err);
     process.exit(1);
   }
-
-  app.log.info('Migration complete!');
 });

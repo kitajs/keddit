@@ -1,42 +1,54 @@
 import Html from '@kitajs/html';
 import { Body, Query } from '@kitajs/runtime';
 import { FastifyInstance, FastifyReply } from 'fastify';
+import { SimpleField } from '../components/fields';
+import { Layout } from '../components/layout';
 import { Authorized } from '../providers/auth';
 import { JWT_EXPIRES_SECONDS, createUserJwt, verifyUserPassword } from '../users/auth';
 import { EmailAndPassword } from '../users/model';
-import { Layout } from '../utils/components/layout';
-import { Nav } from '../utils/components/nav';
 
-export async function get(
-  reply: FastifyReply,
-  { user }: Authorized<false>,
-  email?: Query,
-  next: Query = '/'
-) {
+export async function get({ user }: Authorized<false>, email?: Query, next?: Query) {
   if (user) {
-    reply.header('hx-redirect', next);
-    return <div>Redirecting...</div>;
+    return (
+      <Layout user={user}>
+        <section>
+          <div>You are already logged in.</div>
+          <a href="/logout">Logout</a>
+        </section>
+      </Layout>
+    );
   }
 
   return (
     <Layout>
-      <Nav />
-
-      <article>
-        <form method="post" hx-post={`/login?next=${next}`}>
-          <input type="email" name="email" placeholder="Email" required value={email} />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
+      <section>
+        <form method="post" hx-post={`/login?next=${next || '/'}`}>
+          <SimpleField
+            id="email"
+            autocomplete='email'
             required
-            minlength="8"
+            placeholder="Email address"
+            type="email"
+            small="We'll never share your email with anyone else."
+            value={email}
           />
-          <button type="submit" class="secondary">
-            Register
-          </button>
+          <SimpleField
+            id="password"
+            autocomplete='password'
+            required
+            placeholder="Password"
+            type="password"
+            minlength={8}
+          />
+          <button type="submit">Register</button>
         </form>
-      </article>
+
+        {!!next && (
+          <small>
+            After login you will be redirected to <code safe>{next}</code>
+          </small>
+        )}
+      </section>
     </Layout>
   );
 }
@@ -49,10 +61,7 @@ export async function post(
 ) {
   const user = await prisma.user.findUnique({
     where: { email: body.email },
-    select: {
-      id: true,
-      password: true
-    }
+    select: { id: true, password: true }
   });
 
   if (

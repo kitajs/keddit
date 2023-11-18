@@ -1,0 +1,12 @@
+:root {
+  --primary: #b58d88 !important;
+  --primary-hover: #826561 !important;
+}
+
+ul {
+  padding-left: 0;
+}
+
+ul li {
+  list-style: none;
+}

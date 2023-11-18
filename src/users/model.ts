@@ -15,6 +15,9 @@ export interface CreateUser {
 export interface UpdateUser {
   /** @minLength 3 */
   name?: string;
+
+  /** @format email */
+  email: string;
 }
 
 export interface EmailAndPassword {

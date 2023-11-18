@@ -12,10 +12,13 @@
   "scripts": {
     "prebuild": "prisma generate",
     "build": "kita build && tsc",
-    "dev": "concurrently --restart-tries -1 --names 'Tsc,Kit,Srv' -c 'grey,grey,bgBlue' 'tsc --watch --preserveWatchOutput' 'kita watch' 'node --enable-source-maps --env-file=.env --watch dist/index.js | pino-pretty'",
+    "dev": "concurrently --raw --restart-tries 1 \"npm:dev:*\"",
+    "dev:kita": "kita watch",
+    "dev:server": "node --enable-source-maps --env-file=.env --watch dist/index.js | pino-pretty",
+    "dev:tsc": "tsc --watch --preserveWatchOutput",
     "format": "prettier --write .",
     "migrate": "prisma migrate dev",
-    "start": "node --enable-source-maps --env-file=.env dist/index.js",
+    "start": "node --enable-source-maps --env-file=.env dist/index.js | pino-pretty",
     "studio": "prisma studio",
     "test": "kita build --dry-run && tsc --noEmit"
   },
@@ -25,6 +28,7 @@
     "@fastify/formbody": "^7.4.0",
     "@fastify/jwt": "^7.2.3",
     "@fastify/sensible": "^5.5.0",
+    "@fastify/static": "^6.12.0",
     "@kitajs/html": "^3.0.8",
     "@kitajs/runtime": "^1.1.12",
     "@prisma/client": "5.6.0",

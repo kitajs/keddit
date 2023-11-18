@@ -1,33 +1,45 @@
 import Html from '@kitajs/html';
 import { Body, Query, Use } from '@kitajs/runtime';
 import { FastifyInstance, FastifyReply } from 'fastify';
+import { SimpleField } from '../components/fields';
+import { Layout } from '../components/layout';
 import { CreateUser } from '../users/model';
 import { createUser } from '../users/service';
-import { Layout } from '../utils/components/layout';
-import { Nav } from '../utils/components/nav';
 
 export async function get(name?: Query, email?: Query) {
   return (
     <Layout>
-      <Nav />
-
-      <article>
+      <section>
         <form method="post" hx-post="/register" hx-swap="outerHTML">
-          <input type="text" name="name" placeholder="Name" required value={name} />
-          <input type="email" name="email" placeholder="Email" required value={email} />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            min="8"
+          <SimpleField
+            id="name"
             required
+            placeholder="Username"
+            autocomplete='name'
+            type="text"
+            value={name}
+            minlength={3}
           />
-
-          <button type="submit" class="secondary">
-            Register now
-          </button>
+          <SimpleField
+            id="email"
+            required
+            placeholder="Email address"
+            autocomplete='email'
+            type="email"
+            small="We'll never share your email with anyone else."
+            value={email}
+          />
+          <SimpleField
+            id="password"
+            required
+            placeholder="Password"
+            type="password"
+            autocomplete='password'
+            minlength={8}
+          />
+          <button type="submit">Register now</button>
         </form>
-      </article>
+      </section>
     </Layout>
   );
 }

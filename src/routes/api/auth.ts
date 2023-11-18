@@ -1,12 +1,8 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body, Query } from '@kitajs/runtime';
 import { FastifyInstance, FastifyReply } from 'fastify';
-import {
-  JWT_EXPIRES_SECONDS,
-  createUserJwt,
-  verifyUserPassword
-} from '../../../users/auth';
-import { EmailAndPassword } from '../../../users/model';
+import { JWT_EXPIRES_SECONDS, createUserJwt, verifyUserPassword } from '../../users/auth';
+import { EmailAndPassword } from '../../users/model';
 
 /**
  * @tag Auth
@@ -52,7 +48,7 @@ export async function post(
   user.password = '';
 
   return {
-    token: cookie ? undefined : `Bearer ${token}`,
+    token: !cookie && token,
     user
   };
 }

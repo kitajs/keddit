@@ -10,8 +10,19 @@ export function Nav({ user }: NavProps) {
     <nav>
       <ul>
         <li>
+          <a
+            href="https://kita.js.org"
+            class="contrast"
+            target="_blank"
+            title="Powered by kita.js.org"
+          >
+            <img src="https://kita.js.org/logo.svg" width="64" />
+          </a>
+        </li>
+
+        <li>
           <a href="/" class="contrast">
-            <strong>Keddit</strong>
+            <h1 style={{ marginBottom: 0 }}>Keddit</h1>
           </a>
         </li>
       </ul>
@@ -19,7 +30,12 @@ export function Nav({ user }: NavProps) {
         {user ? (
           <>
             <li>
-              <div safe>Logged in as {user.name}</div>{' '}
+              <div>
+                Logged in as{' '}
+                <a href="/profile" class="contrast" safe>
+                  {user.name}
+                </a>
+              </div>
             </li>
             <li>
               <a href="/logout">Logout</a>

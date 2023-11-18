@@ -1,21 +1,17 @@
 {
   "compilerOptions": {
     "incremental": true,
-
     "target": "ES2022",
     "module": "CommonJS",
     "outDir": "dist",
-
     "isolatedModules": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "preserveSymlinks": true,
     "forceConsistentCasingInFileNames": true,
-
     "jsx": "react",
     "jsxFactory": "Html.createElement",
     "jsxFragmentFactory": "Html.Fragment",
-
     "strict": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
@@ -31,7 +27,6 @@
     "noFallthroughCasesInSwitch": true,
     "noUncheckedIndexedAccess": true,
     "noImplicitOverride": true,
-
     "skipDefaultLibCheck": true,
     "skipLibCheck": true,
     "plugins": [{ "name": "@kitajs/ts-html-plugin" }, { "name": "@kitajs/ts-plugin" }]

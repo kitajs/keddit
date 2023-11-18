@@ -1,18 +1,16 @@
 import Html from '@kitajs/html';
 import { FastifyReply } from 'fastify';
-import { Layout } from '../utils/components/layout';
-import { Nav } from '../utils/components/nav';
+import { Layout } from '../components/layout';
 
 export async function get(reply: FastifyReply) {
   reply.clearCookie('token');
 
   return (
     <Layout>
-      <Nav />
-
-      <article>
-        <div>Logged out</div>
-      </article>
+      <section>
+        <h2>Logged out</h2>
+        <a href="/login">Login</a>
+      </section>
     </Layout>
   );
 }
