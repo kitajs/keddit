@@ -26,6 +26,14 @@ export const app = fastify({
   }
 });
 
+
+
+declare module 'fastify' {
+  interface FastifyInstance {
+    prisma: typeof prisma;
+  }
+}
+
 const prisma = new PrismaClient({
   datasourceUrl: Env.DATABASE_URL,
   log: [
@@ -36,18 +44,12 @@ const prisma = new PrismaClient({
   ]
 });
 
-declare module 'fastify' {
-  interface FastifyInstance {
-    prisma: typeof prisma;
-  }
-}
-
-app.decorate('prisma', prisma);
-
 prisma.$on('error', app.log.error.bind(app.log));
 prisma.$on('info', app.log.debug.bind(app.log));
 prisma.$on('query', app.log.trace.bind(app.log));
 prisma.$on('warn', app.log.warn.bind(app.log));
+
+app.decorate('prisma', prisma);
 
 app.register(fastifyCookie);
 
