@@ -1,7 +1,7 @@
 import Html from '@kitajs/html';
 import { PrismaClient } from '@prisma/client';
 import { TakeSkip } from '../utils/model';
-import { PostCards } from './post-cards';
+import { PostCard } from './post';
 
 export interface PostListProps extends TakeSkip {
   prisma: PrismaClient;
@@ -23,10 +23,20 @@ export async function PostList({ prisma, take, skip, userId }: PostListProps) {
     take
   });
 
+  const cards = posts.map((post) => (
+    <li>
+      <PostCard
+        author={post.author.name}
+        post={post}
+        authored={userId === post.authorId}
+      />
+    </li>
+  ));
+
   if (!userId) {
     return (
       <>
-        <PostCards posts={posts} userId={userId} />
+        {cards}
 
         <a href="/login" role="button" class="outline" style={{ textAlign: 'center' }}>
           Login to load more
@@ -37,7 +47,7 @@ export async function PostList({ prisma, take, skip, userId }: PostListProps) {
 
   return (
     <>
-      <PostCards posts={posts} userId={userId} />
+      {cards}
 
       {posts.length >= take && (
         <button
