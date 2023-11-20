@@ -29,7 +29,7 @@ export async function post(
     return user;
   }
 
-  if (error.code === 'P202') {
+  if (error.code === 'P2002') {
     throw errors.conflict('Email already registered!');
   }
 

@@ -2,6 +2,7 @@ import Html from '@kitajs/html';
 import { Body, Query } from '@kitajs/runtime';
 import { PrismaClient } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
+import { PostCard } from '../components/post';
 import { PostList } from '../components/post-list';
 import { CreatePost } from '../features/posts/model';
 import { createPost } from '../features/posts/service';
@@ -23,13 +24,14 @@ export async function post(
   reply: FastifyReply,
   body: Body<CreatePost>
 ) {
-  const [error] = await createPost(prisma, user.id, body);
+  const [error, post] = await createPost(prisma, user.id, body);
 
   if (error) {
     // TODO: Handle error
     log.error(error);
+    reply.code(500);
+    return <div>Internal Server Error</div>;
   }
 
-  reply.header('hx-redirect', '/');
-  return <div>Redirecting...</div>;
+  return <PostCard post={post!} author={user.name} authored />;
 }

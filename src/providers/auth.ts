@@ -24,6 +24,7 @@ export default async function (
 
     if (force === 'html') {
       return reply
+        .clearCookie('token')
         .redirect('/login?next=' + encodeURIComponent(url))
         .send('Redirecting...');
     } else {
@@ -38,6 +39,7 @@ export default async function (
   if (!token) {
     if (force === 'html') {
       return reply
+        .clearCookie('token')
         .redirect('/login?next=' + encodeURIComponent(url))
         .send('Redirecting...');
     } else {
@@ -50,6 +52,7 @@ export default async function (
   if (!userId || typeof userId !== 'number') {
     if (force === 'html') {
       return reply
+        .clearCookie('token')
         .redirect('/login?next=' + encodeURIComponent(url))
         .send('Redirecting...');
     } else {
@@ -64,6 +67,7 @@ export default async function (
   if (!user) {
     if (force === 'html') {
       return reply
+        .clearCookie('token')
         .redirect('/login?next=' + encodeURIComponent(url))
         .send('Redirecting...');
     } else {

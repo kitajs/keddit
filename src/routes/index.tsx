@@ -2,7 +2,6 @@ import Html from '@kitajs/html';
 import { Suspense } from '@kitajs/html/suspense';
 import { SuspenseId } from '@kitajs/runtime';
 import { PrismaClient } from '@prisma/client';
-import { FastifyRequest } from 'fastify';
 import { SimpleField } from '../components/fields';
 import { Layout } from '../components/layout';
 import { PostList } from '../components/post-list';
@@ -10,15 +9,21 @@ import { Authorized } from '../providers/auth';
 
 export async function get(
   prisma: PrismaClient,
-  { log }: FastifyRequest,
-  rid: SuspenseId,
-  { user }: Authorized<false>
+  { user }: Authorized<false>,
+  rid: SuspenseId
 ) {
   return (
     <Layout user={user}>
       {!!user && (
         <section>
-          <form method="post" hx-post="/posts" hx-swap="outerHTML">
+          <form
+            method="post"
+            hx-post="/posts"
+            hx-swap="afterbegin"
+            hx-target="#post-list"
+            // hx-on::after-request is a syntax error in JSX
+            {...{ 'hx-on::after-request': 'this.reset()' }}
+          >
             <SimpleField
               id="title"
               autocomplete="off"
@@ -45,15 +50,8 @@ export async function get(
       )}
 
       <section>
-        <ul>
-          <Suspense
-            rid={rid}
-            fallback={<progress />}
-            catch={(err) => {
-              log.error(err);
-              return <li>Something went wrong</li>;
-            }}
-          >
+        <ul id="post-list">
+          <Suspense rid={rid} fallback={<progress />}>
             <PostList prisma={prisma} take={30} skip={0} userId={user?.id} />
           </Suspense>
         </ul>

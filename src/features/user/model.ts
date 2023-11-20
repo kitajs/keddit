@@ -1,8 +1,12 @@
 export interface CreateUser {
-  /** @minLength 3 */
+  /**
+   * @minLength 3
+   */
   name: string;
 
-  /** @format email */
+  /**
+   * @format email
+   */
   email: string;
 
   /**
