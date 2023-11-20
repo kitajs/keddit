@@ -39,10 +39,3 @@ jobs:
 
       - name: Test
         run: pnpm test
-
-      - name: Publish to Codecov
-        uses: codecov/codecov-action@v3
-        with:
-          # Codecov backend may be unstable
-          fail_ci_if_error: false
-          token: ${{ secrets.CODECOV_TOKEN }}
