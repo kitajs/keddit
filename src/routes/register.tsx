@@ -18,7 +18,7 @@ export async function get(name?: Query, email?: Query) {
             placeholder="Username"
             autocomplete="name"
             type="text"
-            subtitle={name}
+            defaultValue={name}
             minlength={3}
           />
           <SimpleField

@@ -19,7 +19,7 @@ export function get({ user }: Authorized<'html'>) {
             placeholder="Username"
             autocomplete="username"
             type="text"
-            subtitle={user.name}
+            defaultValue={user.name}
             minlength={3}
           />
           <SimpleField
