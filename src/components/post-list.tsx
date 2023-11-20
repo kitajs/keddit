@@ -2,7 +2,6 @@ import Html from '@kitajs/html';
 import { PrismaClient } from '@prisma/client';
 import { TakeSkip } from '../utils/model';
 import { PostCard } from './post';
-import { setTimeout } from 'timers/promises';
 
 export interface PostListProps extends TakeSkip {
   prisma: PrismaClient;
