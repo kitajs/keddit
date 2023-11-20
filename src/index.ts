@@ -8,7 +8,6 @@ import fastifyFormbody from '@fastify/formbody';
 import fastifyJwt from '@fastify/jwt';
 import fastifyStatic from '@fastify/static';
 import { Kita } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
 import addFormats from 'ajv-formats';
 import closeWithGrace from 'close-with-grace';
 import fastify from 'fastify';
@@ -26,31 +25,6 @@ export const app = fastify({
   }
 });
 
-
-
-declare module 'fastify' {
-  interface FastifyInstance {
-    prisma: typeof prisma;
-  }
-}
-
-const prisma = new PrismaClient({
-  datasourceUrl: Env.DATABASE_URL,
-  log: [
-    { emit: 'event', level: 'query' },
-    { emit: 'event', level: 'warn' },
-    { emit: 'event', level: 'info' },
-    { emit: 'event', level: 'error' }
-  ]
-});
-
-prisma.$on('error', app.log.error.bind(app.log));
-prisma.$on('info', app.log.debug.bind(app.log));
-prisma.$on('query', app.log.trace.bind(app.log));
-prisma.$on('warn', app.log.warn.bind(app.log));
-
-app.decorate('prisma', prisma);
-
 app.register(fastifyCookie);
 
 app.register(fastifyEtag);
@@ -58,7 +32,7 @@ app.register(fastifyEtag);
 app.register(fastifyFormbody);
 
 app.register(fastifyStatic, {
-  root: path.resolve('public'),
+  root: path.resolve('public')
 });
 
 app.register(fastifyJwt, {
@@ -102,7 +76,6 @@ const closeListeners = closeWithGrace({ delay: 500 }, async function ({ err }) {
 
 // Cancelling the close listeners
 app.addHook('onClose', async () => {
-  await app.prisma.$disconnect();
   closeListeners.uninstall();
 });
 

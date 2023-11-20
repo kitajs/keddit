@@ -1,9 +1,9 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body, Query } from '@kitajs/runtime';
-
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import { CreatePost } from '../../../posts/model';
-import { createPost } from '../../../posts/service';
+import { PrismaClient } from '@prisma/client';
+import { FastifyReply, FastifyRequest } from 'fastify';
+import { CreatePost } from '../../../features/posts/model';
+import { createPost } from '../../../features/posts/service';
 import { Authorized } from '../../../providers/auth';
 import { TakeSkip } from '../../../utils/model';
 
@@ -12,7 +12,7 @@ import { TakeSkip } from '../../../utils/model';
  * @summary Get posts
  * @operationId getPosts
  */
-export async function get({ prisma }: FastifyInstance, filter: Query<TakeSkip>) {
+export async function get(prisma: PrismaClient, filter: Query<TakeSkip>) {
   return prisma.post.findMany({
     take: filter.take,
     skip: filter.skip,
@@ -26,7 +26,7 @@ export async function get({ prisma }: FastifyInstance, filter: Query<TakeSkip>) 
  * @operationId createPost
  */
 export async function post(
-  { prisma }: FastifyInstance,
+  prisma: PrismaClient,
   { user }: Authorized,
   { log }: FastifyRequest,
   reply: FastifyReply,

@@ -1,11 +1,12 @@
 import { Html } from '@kitajs/html';
 import { Body } from '@kitajs/runtime';
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { PrismaClient } from '@prisma/client';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { SimpleField } from '../components/fields';
 import { Layout } from '../components/layout';
+import { UpdateUser } from '../features/user/model';
+import { updateUser } from '../features/user/service';
 import { Authorized } from '../providers/auth';
-import { UpdateUser } from '../users/model';
-import { updateUser } from '../users/service';
 
 export function get({ user }: Authorized<'html'>) {
   return (
@@ -16,19 +17,19 @@ export function get({ user }: Authorized<'html'>) {
             id="name"
             required
             placeholder="Username"
-            autocomplete='username'
+            autocomplete="username"
             type="text"
-            value={user.name}
+            subtitle={user.name}
             minlength={3}
           />
           <SimpleField
             id="email"
             required
-            autocomplete='email'
+            autocomplete="email"
             placeholder="Email address"
             type="email"
-            small="We'll never share your email with anyone else."
-            value={user.email}
+            subtitle="We'll never share your email with anyone else."
+            defaultValue={user.email}
           />
           <button type="submit">Update current user</button>
         </form>
@@ -38,7 +39,7 @@ export function get({ user }: Authorized<'html'>) {
 }
 
 export async function post(
-  { prisma }: FastifyInstance,
+  prisma: PrismaClient,
   { user }: Authorized,
   { log }: FastifyRequest,
   reply: FastifyReply,

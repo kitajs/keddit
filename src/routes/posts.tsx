@@ -1,14 +1,15 @@
 import Html from '@kitajs/html';
 import { Body, Query } from '@kitajs/runtime';
-import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { PrismaClient } from '@prisma/client';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { PostList } from '../components/post-list';
-import { CreatePost } from '../posts/model';
-import { createPost } from '../posts/service';
+import { CreatePost } from '../features/posts/model';
+import { createPost } from '../features/posts/service';
 import { Authorized } from '../providers/auth';
 import { TakeSkip } from '../utils/model';
 
 export async function get(
-  { prisma }: FastifyInstance,
+  prisma: PrismaClient,
   { user }: Authorized<'html'>,
   { take, skip }: Query<TakeSkip>
 ) {
@@ -16,7 +17,7 @@ export async function get(
 }
 
 export async function post(
-  { prisma }: FastifyInstance,
+  prisma: PrismaClient,
   { user }: Authorized,
   { log }: FastifyRequest,
   reply: FastifyReply,

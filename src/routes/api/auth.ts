@@ -1,8 +1,10 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body, Query } from '@kitajs/runtime';
+import { PrismaClient } from '@prisma/client';
 import { FastifyInstance, FastifyReply } from 'fastify';
-import { JWT_EXPIRES_SECONDS, createUserJwt, verifyUserPassword } from '../../users/auth';
-import { EmailAndPassword } from '../../users/model';
+import { Env } from '../../env';
+import { createUserJwt, verifyUserPassword } from '../../features/user/auth';
+import { EmailAndPassword } from '../../features/user/model';
 
 /**
  * @tag Auth
@@ -10,7 +12,8 @@ import { EmailAndPassword } from '../../users/model';
  * @operationId login
  */
 export async function post(
-  { prisma, jwt }: FastifyInstance,
+  { jwt }: FastifyInstance,
+  prisma: PrismaClient,
   reply: FastifyReply,
   body: Body<EmailAndPassword>,
   errors: HttpErrors,
@@ -39,7 +42,7 @@ export async function post(
       httpOnly: true,
       path: '/',
       sameSite: 'strict',
-      maxAge: JWT_EXPIRES_SECONDS
+      maxAge: Env.JWT_EXPIRES_SECONDS
     });
   }
 

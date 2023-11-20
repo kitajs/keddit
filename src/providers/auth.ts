@@ -1,16 +1,17 @@
 import { httpErrors } from '@fastify/sensible';
 import { ProviderGenerics, RouteSchema } from '@kitajs/runtime';
-import { User } from '@prisma/client';
+import { PrismaClient, User } from '@prisma/client';
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import { verifyUserJwt } from '../users/auth';
+import { verifyUserJwt } from '../features/user/auth';
 
 export type Authorized<Force extends boolean | 'html' = true> = {
   user: Force extends true | 'html' ? User : User | undefined;
 };
 
 export default async function (
-  { jwt, prisma }: FastifyInstance,
+  { jwt }: FastifyInstance,
   { headers, cookies, url }: FastifyRequest,
+  prisma: PrismaClient,
   [force = true]: ProviderGenerics<[boolean | 'html']>,
   reply: FastifyReply
 ): Promise<Authorized<boolean>> {

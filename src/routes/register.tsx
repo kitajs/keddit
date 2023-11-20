@@ -1,10 +1,11 @@
 import Html from '@kitajs/html';
 import { Body, Query, Use } from '@kitajs/runtime';
-import { FastifyInstance, FastifyReply } from 'fastify';
+import { PrismaClient } from '@prisma/client';
+import { FastifyReply, FastifyRequest } from 'fastify';
 import { SimpleField } from '../components/fields';
 import { Layout } from '../components/layout';
-import { CreateUser } from '../users/model';
-import { createUser } from '../users/service';
+import { CreateUser } from '../features/user/model';
+import { createUser } from '../features/user/service';
 
 export async function get(name?: Query, email?: Query) {
   return (
@@ -15,26 +16,26 @@ export async function get(name?: Query, email?: Query) {
             id="name"
             required
             placeholder="Username"
-            autocomplete='name'
+            autocomplete="name"
             type="text"
-            value={name}
+            subtitle={name}
             minlength={3}
           />
           <SimpleField
             id="email"
             required
             placeholder="Email address"
-            autocomplete='email'
+            autocomplete="email"
             type="email"
-            small="We'll never share your email with anyone else."
-            value={email}
+            subtitle="We'll never share your email with anyone else."
+            defaultValue={email}
           />
           <SimpleField
             id="password"
             required
             placeholder="Password"
             type="password"
-            autocomplete='password'
+            autocomplete="password"
             minlength={8}
           />
           <button type="submit">Register now</button>
@@ -46,8 +47,9 @@ export async function get(name?: Query, email?: Query) {
 
 export async function post(
   this: Use<[]>,
-  { prisma, log }: FastifyInstance,
+  { log }: FastifyRequest,
   reply: FastifyReply,
+  prisma: PrismaClient,
   body: Body<CreateUser>
 ) {
   const [error, user] = await createUser(prisma, body);

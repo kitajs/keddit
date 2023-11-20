@@ -1,5 +1,5 @@
 import { Path, Query } from '@kitajs/runtime';
-import { FastifyInstance } from 'fastify';
+import { PrismaClient } from '@prisma/client';
 import { Authorized } from '../../../../providers/auth';
 import { TakeSkip } from '../../../../utils/model';
 
@@ -9,7 +9,7 @@ import { TakeSkip } from '../../../../utils/model';
  * @operationId getUserPosts
  */
 export async function get(
-  { prisma }: FastifyInstance,
+  prisma: PrismaClient,
   _: Authorized<false>,
   id: Path<number>,
   query: Query<TakeSkip>

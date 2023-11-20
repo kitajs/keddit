@@ -1,8 +1,9 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body } from '@kitajs/runtime';
-import type { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
-import { CreateUser } from '../../../users/model';
-import { createUser } from '../../../users/service';
+import { PrismaClient } from '@prisma/client';
+import type { FastifyReply, FastifyRequest } from 'fastify';
+import { CreateUser } from '../../../features/user/model';
+import { createUser } from '../../../features/user/service';
 
 /**
  * @tag Users
@@ -10,7 +11,7 @@ import { createUser } from '../../../users/service';
  * @operationId createUser
  */
 export async function post(
-  { prisma }: FastifyInstance,
+  prisma: PrismaClient,
   { log }: FastifyRequest,
   errors: HttpErrors,
   reply: FastifyReply,

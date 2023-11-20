@@ -1,28 +1,30 @@
 import { Html } from '@kitajs/html';
 
 export interface FieldProps extends JSX.HtmlInputTag {
-  value?: string;
   id: string;
-  small?: string;
-  of?: 'input' | 'textarea';
+  subtitle?: string;
+  defaultValue?: string;
+  inputType?: 'input' | 'textarea';
 }
 
-export function SimpleField({ of = 'input', value, id, small, ...props }: FieldProps) {
+/** Simple field with a label, input and small text. */
+export function SimpleField(props: FieldProps) {
   return (
     <div>
-      <label for={id} safe>
-        {props.placeholder || id}
+      <label for={props.id} safe>
+        {props.placeholder || props.id}
       </label>
+
       <tag
         {...props}
-        of={of}
+        of={props.inputType || 'input'}
         type={props.type || 'text'}
-        id={id}
-        name={id}
-        required
-        value={value}
+        id={props.id}
+        name={props.id}
+        value={props.defaultValue}
       />
-      {!!small && <small safe>{small}</small>}
+
+      {!!props.subtitle && <small safe>{props.subtitle}</small>}
     </div>
   );
 }

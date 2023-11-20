@@ -1,7 +1,8 @@
 import { Body } from '@kitajs/runtime';
-import { FastifyInstance, FastifyReply } from 'fastify';
+import { PrismaClient } from '@prisma/client';
+import { FastifyReply } from 'fastify';
+import { UpdateUser } from '../../../../features/user/model';
 import { Authorized } from '../../../../providers/auth';
-import { UpdateUser } from '../../../../users/model';
 
 /**
  * @tag Users
@@ -18,7 +19,7 @@ export async function get(auth: Authorized) {
  * @summary Update the current user
  */
 export async function post(
-  { prisma }: FastifyInstance,
+  prisma: PrismaClient,
   { user }: Authorized,
   reply: FastifyReply,
   body: Body<UpdateUser>
