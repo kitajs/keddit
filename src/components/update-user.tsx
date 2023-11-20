@@ -8,7 +8,7 @@ export interface UpdateUserForm {
 
 export function UpdateUserForm({ user }: UpdateUserForm) {
   return (
-    <form method="post" hx-post="/profile" hx-swap="outerHTML">
+    <form hx-post="/profile" hx-swap="outerHTML">
       <SimpleField
         id="name"
         required
