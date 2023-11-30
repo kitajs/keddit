@@ -27,24 +27,18 @@ export default async function (
         .clearCookie('token')
         .redirect('/login?next=' + encodeURIComponent(url))
         .send('Redirecting...');
-    } else {
-      throw httpErrors.unauthorized('Missing authorization header');
     }
+
+    throw httpErrors.unauthorized('Missing authorization header');
   }
 
+  // Removes Bearer prefix if present
   if (token.startsWith('Bearer ')) {
     token = token.slice(7);
   }
 
   if (!token) {
-    if (force === 'html') {
-      return reply
-        .clearCookie('token')
-        .redirect('/login?next=' + encodeURIComponent(url))
-        .send('Redirecting...');
-    } else {
-      throw httpErrors.unauthorized('Missing authorization header');
-    }
+    throw httpErrors.unauthorized('Missing authorization header');
   }
 
   const { userId } = await verifyUserJwt(jwt, token);
@@ -55,9 +49,9 @@ export default async function (
         .clearCookie('token')
         .redirect('/login?next=' + encodeURIComponent(url))
         .send('Redirecting...');
-    } else {
-      throw httpErrors.unauthorized('Invalid token');
     }
+
+    throw httpErrors.unauthorized('Invalid token');
   }
 
   const user = await prisma.user.findUnique({
@@ -65,14 +59,7 @@ export default async function (
   });
 
   if (!user) {
-    if (force === 'html') {
-      return reply
-        .clearCookie('token')
-        .redirect('/login?next=' + encodeURIComponent(url))
-        .send('Redirecting...');
-    } else {
-      throw httpErrors.expectationFailed('User not found');
-    }
+    throw httpErrors.expectationFailed('User not found');
   }
 
   // FIXME: Prisma does not have an easy way to hide fields for now...

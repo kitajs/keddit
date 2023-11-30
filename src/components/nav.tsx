@@ -31,12 +31,9 @@ export function Nav({ user }: NavProps) {
         {user ? (
           <>
             <li>
-              <small>
-                Logged in as{' '}
-                <a href="/profile" class="contrast" safe>
-                  {user.name}
-                </a>
-              </small>
+              <a href="/profile" class="contrast" safe>
+                {user.name}
+              </a>
             </li>
             <li>
               <a href="/logout">Logout</a>

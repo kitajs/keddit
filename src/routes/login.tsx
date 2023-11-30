@@ -2,14 +2,14 @@ import Html from '@kitajs/html';
 import { Body, Query } from '@kitajs/runtime';
 import { PrismaClient } from '@prisma/client';
 import { FastifyInstance, FastifyReply } from 'fastify';
-import { SimpleField } from '../components/fields';
+import { LoginForm } from '../components/forms';
 import { Layout } from '../components/layout';
 import { Env } from '../env';
 import { createUserJwt, verifyUserPassword } from '../features/user/auth';
 import { EmailAndPassword } from '../features/user/model';
 import { Authorized } from '../providers/auth';
 
-export async function get({ user }: Authorized<false>, email?: Query, next?: Query) {
+export async function get({ user }: Authorized<false>, next: Query = '/', email?: Query) {
   if (user) {
     return (
       <Layout user={user}>
@@ -24,28 +24,9 @@ export async function get({ user }: Authorized<false>, email?: Query, next?: Que
   return (
     <Layout>
       <section>
-        <form method="post" hx-post={`/login?next=${next || '/'}`}>
-          <SimpleField
-            id="email"
-            autocomplete="email"
-            required
-            placeholder="Email address"
-            type="email"
-            subtitle="We'll never share your email with anyone else."
-            defaultValue={email}
-          />
-          <SimpleField
-            id="password"
-            autocomplete="password"
-            required
-            placeholder="Password"
-            type="password"
-            minlength={8}
-          />
-          <button type="submit">Register</button>
-        </form>
+        <LoginForm next={next} defaultEmail={email} />
 
-        {!!next && (
+        {next !== '/' && (
           <small>
             After login you will be redirected to <code safe>{next}</code>
           </small>
@@ -67,18 +48,23 @@ export async function post(
     select: { id: true, password: true }
   });
 
-  if (
-    !user ||
-    // Invalid password
-    !(await verifyUserPassword(user.password, body.password))
-  ) {
+  if (!user) {
     reply.clearCookie('token');
 
     return (
-      <>
-        <div>Invalid email or password</div>
-        <a href="/login">Login</a>
-      </>
+      <LoginForm next={next} emailError="User not found." defaultEmail={body.email} />
+    );
+  }
+
+  if (!(await verifyUserPassword(user.password, body.password))) {
+    reply.clearCookie('token');
+
+    return (
+      <LoginForm
+        next={next}
+        passwordError="Invalid password."
+        defaultEmail={body.email}
+      />
     );
   }
 
@@ -93,5 +79,5 @@ export async function post(
 
   reply.header('hx-redirect', next);
 
-  return <div>Redirecting...</div>;
+  return '';
 }

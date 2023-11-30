@@ -29,7 +29,8 @@ export async function post(
   if (error) {
     // TODO: Handle error
     log.error(error);
-    reply.code(500);
+    reply.status(500);
+
     return <div>Internal Server Error</div>;
   }
 

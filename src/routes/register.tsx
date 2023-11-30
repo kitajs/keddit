@@ -1,52 +1,23 @@
 import Html from '@kitajs/html';
-import { Body, Query, Use } from '@kitajs/runtime';
+import { Body } from '@kitajs/runtime';
 import { PrismaClient } from '@prisma/client';
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { SimpleField } from '../components/fields';
+import { LoginForm, RegisterForm } from '../components/forms';
 import { Layout } from '../components/layout';
 import { CreateUser } from '../features/user/model';
 import { createUser } from '../features/user/service';
 
-export async function get(name?: Query, email?: Query) {
+export async function get() {
   return (
     <Layout>
       <section>
-        <form method="post" hx-post="/register" hx-swap="outerHTML">
-          <SimpleField
-            id="name"
-            required
-            placeholder="Username"
-            autocomplete="name"
-            type="text"
-            defaultValue={name}
-            minlength={3}
-          />
-          <SimpleField
-            id="email"
-            required
-            placeholder="Email address"
-            autocomplete="email"
-            type="email"
-            subtitle="We'll never share your email with anyone else."
-            defaultValue={email}
-          />
-          <SimpleField
-            id="password"
-            required
-            placeholder="Password"
-            type="password"
-            autocomplete="password"
-            minlength={8}
-          />
-          <button type="submit">Register now</button>
-        </form>
+        <RegisterForm />
       </section>
     </Layout>
   );
 }
 
 export async function post(
-  this: Use<[]>,
   { log }: FastifyRequest,
   reply: FastifyReply,
   prisma: PrismaClient,
@@ -55,17 +26,21 @@ export async function post(
   const [error, user] = await createUser(prisma, body);
 
   if (user) {
-    reply.header('hx-redirect', `/login?email=${user.email}`);
-    return <div>Redirecting...</div>;
+    return <LoginForm next="/" defaultEmail={user.email} />;
   }
 
   if (error.code === 'P2002') {
-    reply.header('hx-redirect', `/register?name=${body.name}&email=Email already exists`);
-    return <div>Redirecting...</div>;
+    return (
+      <RegisterForm
+        emailError="Email already registered."
+        defaultName={body.name}
+        defaultPassword={body.password}
+      />
+    );
   }
 
   log.error(error);
-  reply.header('hx-redirect', `/register?name=Unknown error...`);
+  reply.status(500); // Internal Server Error
 
-  return <div>Redirecting...</div>;
+  throw <RegisterForm nameError="Unknown error..." />;
 }

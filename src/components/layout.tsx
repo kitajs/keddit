@@ -20,19 +20,21 @@ export function Layout({ children, user }: LayoutProps) {
 
           <link
             rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.classless.min.css"
+            href="https://cdn.jsdelivr.net/npm/@picocss/pico@1/css/pico.min.css"
           ></link>
+
+          <link rel="icon" href="https://kita.js.org/logo.svg" />
 
           <link rel="stylesheet" href="/index.css"></link>
         </head>
         <body>
-          <header>
+          <header class="container">
             <Nav user={user} />
           </header>
 
-          <main>{children}</main>
+          <main class="container">{children}</main>
 
-          <footer>
+          <footer class="container">
             <small>
               Made with <span style={{ color: 'red' }}>❤</span> by{' '}
               <a href="https://arthur.place/">Arthur Fiorette</a>

@@ -9,8 +9,8 @@ export async function createPost(
   try {
     const post = await prisma.post.create({
       data: {
-        title: body.title,
-        body: body.body,
+        title: body.title.trim(),
+        body: body.body.trim(),
         authorId
       }
     });
