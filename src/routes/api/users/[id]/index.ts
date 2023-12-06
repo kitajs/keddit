@@ -1,6 +1,6 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Path } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { Authorized } from '../../../../providers/auth';
 
 /**

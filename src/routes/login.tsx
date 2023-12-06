@@ -1,6 +1,6 @@
 import Html from '@kitajs/html';
 import { Body, Query } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { FastifyInstance, FastifyReply } from 'fastify';
 import { LoginForm } from '../components/forms';
 import { Layout } from '../components/layout';

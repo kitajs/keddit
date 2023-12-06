@@ -1,5 +1,5 @@
 import Html from '@kitajs/html';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { TakeSkip } from '../utils/model';
 import { PostCard } from './post';
 

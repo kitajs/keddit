@@ -1,5 +1,5 @@
 import { Path, Query } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { Authorized } from '../../../../providers/auth';
 import { TakeSkip } from '../../../../utils/model';
 

@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { CreatePost } from './model';
 
 export async function createPost(

@@ -1,6 +1,6 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body, Query } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { CreatePost } from '../../../features/posts/model';
 import { createPost } from '../../../features/posts/service';

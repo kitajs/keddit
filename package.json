@@ -10,8 +10,7 @@
   "author": "Arthur Fiorette <me@arthur.place>",
   "main": "dist/index.js",
   "scripts": {
-    "prebuild": "prisma generate",
-    "build": "kita build && tsc",
+    "build": "prisma generate && kita build && tsc",
     "dev": "concurrently --raw --restart-tries 1 \"npm:dev:*\"",
     "dev:kita": "kita watch",
     "dev:server": "node --enable-source-maps --env-file=.env --watch dist/index.js | pino-pretty",

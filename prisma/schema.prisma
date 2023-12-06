@@ -1,7 +1,7 @@
 generator client {
   provider = "prisma-client-js"
   /// Pnpm messes up with prisma
-  output   = "../node_modules/.prisma/client"
+  output   = "../node_modules/prisma-client"
 }
 
 datasource db {

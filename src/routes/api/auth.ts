@@ -1,6 +1,6 @@
 import { HttpErrors } from '@fastify/sensible';
 import { Body, Query } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { FastifyInstance, FastifyReply } from 'fastify';
 import { Env } from '../../env';
 import { createUserJwt, verifyUserPassword } from '../../features/user/auth';

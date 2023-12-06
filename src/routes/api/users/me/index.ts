@@ -1,5 +1,5 @@
 import { Body } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { FastifyReply } from 'fastify';
 import { UpdateUser } from '../../../../features/user/model';
 import { Authorized } from '../../../../providers/auth';

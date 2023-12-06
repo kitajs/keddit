@@ -1,6 +1,6 @@
 import Html from '@kitajs/html';
 import { Body, Query } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { FastifyReply, FastifyRequest } from 'fastify';
 import { PostCard } from '../components/post';
 import { PostList } from '../components/post-list';

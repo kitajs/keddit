@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { hashUserPassword } from './auth';
 import { CreateUser, UpdateUser } from './model';
 

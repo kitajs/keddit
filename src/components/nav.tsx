@@ -1,5 +1,5 @@
 import Html from '@kitajs/html';
-import { User } from '@prisma/client';
+import { User } from 'prisma-client';
 
 export interface NavProps {
   user?: Pick<User, 'name'>;

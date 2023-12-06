@@ -1,5 +1,5 @@
 import { JWT } from '@fastify/jwt';
-import { User } from '@prisma/client';
+import { User } from 'prisma-client';
 import { hash, verify } from 'argon2';
 import { Env } from '../../env';
 

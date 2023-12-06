@@ -1,7 +1,7 @@
 import Html from '@kitajs/html';
 import { Suspense } from '@kitajs/html/suspense';
 import { SuspenseId } from '@kitajs/runtime';
-import { PrismaClient } from '@prisma/client';
+import { PrismaClient } from 'prisma-client';
 import { SimpleField } from '../components/fields';
 import { Layout } from '../components/layout';
 import { PostList } from '../components/post-list';

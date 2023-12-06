@@ -1,5 +1,5 @@
 import Html from '@kitajs/html';
-import { Post } from '@prisma/client';
+import { Post } from 'prisma-client';
 
 export interface PostCardProps {
   post: Post;
