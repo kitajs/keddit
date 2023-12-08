@@ -33,6 +33,10 @@ export async function PostList({ prisma, take, skip, userId }: PostListProps) {
     </li>
   ));
 
+  if (!cards.length) {
+    return <div>No posts found.</div>;
+  }
+
   if (!userId) {
     return (
       <>

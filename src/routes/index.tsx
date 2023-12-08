@@ -51,7 +51,7 @@ export async function get(
 
       <section>
         <ul id="post-list">
-          <Suspense rid={rid} fallback={<progress />}>
+          <Suspense rid={rid} fallback={<progress />} catch={'Unknown error!'}>
             <PostList prisma={prisma} take={10} skip={0} userId={user?.id} />
           </Suspense>
         </ul>
