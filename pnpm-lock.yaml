@@ -30,8 +30,8 @@ dependencies:
     specifier: ^1.1.14
     version: 1.1.14(fastify@4.24.3)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
   '@prisma/client':
-    specifier: 5.7.0
-    version: 5.7.0(prisma@5.7.0)
+    specifier: 5.7.1
+    version: 5.7.1(prisma@5.7.0)
   ajv-formats:
     specifier: ^2.1.1
     version: 2.1.1(ajv@8.12.0)
@@ -589,8 +589,8 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /@prisma/client@5.7.0(prisma@5.7.0):
-    resolution: {integrity: sha512-cZmglCrfNbYpzUtz7HscVHl38e9CrUs31nrVoGUK1nIPXGgt8hT4jj2s657UXcNdQ/jBUxDgGmHyu2Nyrq1txg==}
+  /@prisma/client@5.7.1(prisma@5.7.0):
+    resolution: {integrity: sha512-TUSa4nUcC4nf/e7X3jyO1pEd6XcI/TLRCA0KjkA46RDIpxUaRsBYEOqITwXRW2c0bMFyKcCRXrH4f7h4q9oOlg==}
     engines: {node: '>=16.13'}
     requiresBuild: true
     peerDependencies:
