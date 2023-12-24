@@ -80,7 +80,7 @@ app.addHook('onClose', async () => {
 });
 
 // Start listening.
-app.listen({ port: Env.PORT }, async (err) => {
+app.listen({ port: Env.PORT, host: Env.HOST }, async (err) => {
   if (err) {
     app.log.error(err);
     process.exit(1);

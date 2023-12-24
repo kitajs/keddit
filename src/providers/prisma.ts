@@ -1,7 +1,8 @@
-import { PrismaClient } from 'prisma-client';
 import { FastifyInstance } from 'fastify';
+import { PrismaClient } from 'prisma-client';
 import { Env } from '../env';
 
+// Singleton is not a problem here
 const prisma = new PrismaClient({
   datasourceUrl: Env.DATABASE_URL,
   log: [
@@ -12,10 +13,13 @@ const prisma = new PrismaClient({
   ]
 });
 
+// Simply returns the prisma instance
 export default function (): PrismaClient {
   return prisma;
 }
 
+// Providers can also have lifecycle hooks, this one connects and disconnects from the database
+// and also binds the prisma events to the fastify logger
 export async function onReady(this: FastifyInstance) {
   prisma.$on('error', this.log.error.bind(this.log));
   prisma.$on('info', this.log.debug.bind(this.log));
@@ -25,6 +29,7 @@ export async function onReady(this: FastifyInstance) {
   await prisma.$connect();
 }
 
+// This hook is called when the server is shutting down
 export async function onClose(this: FastifyInstance) {
   await prisma.$disconnect();
 }

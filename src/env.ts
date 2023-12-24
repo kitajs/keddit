@@ -9,6 +9,7 @@ if (!process.env.JWT_SECRET) {
 }
 
 export const Env = Object.freeze({
+  HOST: String(process.env.HOST ?? '0.0.0.0'),
   PORT: Number(process.env.PORT || 1228),
   DATABASE_URL: String(process.env.DATABASE_URL),
   LOG_LEVEL: String(process.env.LOG_LEVEL ?? 'trace').toLowerCase(),

@@ -1,7 +1,7 @@
 import { httpErrors } from '@fastify/sensible';
 import { ProviderGenerics, RouteSchema } from '@kitajs/runtime';
-import { PrismaClient, User } from 'prisma-client';
 import { FastifyInstance, FastifyReply, FastifyRequest } from 'fastify';
+import { PrismaClient, User } from 'prisma-client';
 import { verifyUserJwt } from '../features/user/auth';
 
 export type Authorized<Force extends boolean | 'html' = true> = {
@@ -62,7 +62,7 @@ export default async function (
     throw httpErrors.expectationFailed('User not found');
   }
 
-  // FIXME: Prisma does not have an easy way to hide fields for now...
+  // Prisma does not have an easy way to hide fields for now...
   // https://github.com/prisma/prisma/issues/5042
   user.password = '';
 
