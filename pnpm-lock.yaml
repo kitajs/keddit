@@ -28,7 +28,7 @@ dependencies:
     version: 3.0.10(@kitajs/ts-html-plugin@1.3.3)
   '@kitajs/runtime':
     specifier: ^1.1.14
-    version: 1.1.14(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+    version: 1.1.14(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
   '@prisma/client':
     specifier: 5.7.1
     version: 5.7.1(prisma@5.7.1)
@@ -42,8 +42,8 @@ dependencies:
     specifier: ^1.2.0
     version: 1.2.0
   fastify:
-    specifier: ^4.25.1
-    version: 4.25.1
+    specifier: ^4.25.2
+    version: 4.25.2
   pino:
     specifier: ^8.17.1
     version: 8.17.1
@@ -54,13 +54,13 @@ devDependencies:
     version: 1.0.12(prettier@3.1.1)(typescript@5.3.3)
   '@kitajs/cli':
     specifier: ^1.1.27
-    version: 1.1.27(@types/node@20.10.5)(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+    version: 1.1.27(@types/node@20.10.5)(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
   '@kitajs/ts-html-plugin':
     specifier: ^1.3.3
     version: 1.3.3(@kitajs/html@3.0.10)(typescript@5.3.3)
   '@kitajs/ts-plugin':
     specifier: ^1.1.19
-    version: 1.1.19(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+    version: 1.1.19(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
   '@types/node':
     specifier: ^20.10.5
     version: 20.10.5
@@ -259,15 +259,15 @@ packages:
       '@jridgewell/sourcemap-codec': 1.4.15
     dev: true
 
-  /@kitajs/cli@1.1.27(@types/node@20.10.5)(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
+  /@kitajs/cli@1.1.27(@types/node@20.10.5)(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
     resolution: {integrity: sha512-J6w2d9GC+mKVNcgub6AEJI4wGJbaNjCj+EDGXYQ5mIvw4f70g+zdxrFxQ0QQnkVDHngj/RD6mA4oNjGAo0vhxQ==}
     hasBin: true
     peerDependencies:
       typescript: ^5.2.2
     dependencies:
-      '@kitajs/common': 1.1.14(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
-      '@kitajs/generator': 1.1.24(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
-      '@kitajs/parser': 1.1.19(fastify@4.25.1)(typescript@5.3.3)
+      '@kitajs/common': 1.1.14(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+      '@kitajs/generator': 1.1.24(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+      '@kitajs/parser': 1.1.19(fastify@4.25.2)(typescript@5.3.3)
       '@oclif/core': 3.13.1(typescript@5.3.3)
       '@oclif/plugin-autocomplete': 3.0.2(typescript@5.3.3)
       '@oclif/plugin-help': 6.0.7(typescript@5.3.3)
@@ -287,7 +287,7 @@ packages:
       - ts-json-schema-generator
     dev: true
 
-  /@kitajs/common@1.1.14(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
+  /@kitajs/common@1.1.14(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
     resolution: {integrity: sha512-WOEoRVjRtKA1+VaDQDyaQ84be6Bp82e2661OzI8AQX4aqfXM6pJob8ua0B/RvZ3PI+EZwzpHou9D6p4/W7sE1g==}
     peerDependencies:
       fastify: ^4.24.3
@@ -296,16 +296,16 @@ packages:
     dependencies:
       '@types/json-schema': 7.0.15
       deepmerge: 4.3.1
-      fastify: 4.25.1
+      fastify: 4.25.2
       ts-json-schema-generator: 1.4.0
       tslib: 2.6.2
       type-fest: 4.7.1
       typescript: 5.3.3
 
-  /@kitajs/generator@1.1.24(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
+  /@kitajs/generator@1.1.24(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
     resolution: {integrity: sha512-Zu9bom9dE9jvS1oqE/GgUlWivc0bXxV6Y3kMUJlwgYrItLkue0K9VAXcp+zEOgMTEYcS24dICmdU1C7cXsuaWQ==}
     dependencies:
-      '@kitajs/common': 1.1.14(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+      '@kitajs/common': 1.1.14(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
       json-stable-stringify: 1.1.0
       ts-writer: 1.3.1(typescript@5.3.3)
       tslib: 2.6.2
@@ -325,12 +325,12 @@ packages:
       '@kitajs/ts-html-plugin': 1.3.3(@kitajs/html@3.0.10)(typescript@5.3.3)
       csstype: 3.1.2
 
-  /@kitajs/parser@1.1.19(fastify@4.25.1)(typescript@5.3.3):
+  /@kitajs/parser@1.1.19(fastify@4.25.2)(typescript@5.3.3):
     resolution: {integrity: sha512-9k8UcPvUxpd9L5qCJXAWfReome2Nqj2/DFYKYGtxTfBGSmMB/0uRi/Z/0wuILA85TE+Lb2YhELwEjpeDxwapsw==}
     peerDependencies:
       typescript: ^5.2.2
     dependencies:
-      '@kitajs/common': 1.1.14(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+      '@kitajs/common': 1.1.14(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
       deepmerge: 4.3.1
       ts-json-schema-generator: 1.4.0
       tslib: 2.6.2
@@ -340,7 +340,7 @@ packages:
       - fastify
     dev: true
 
-  /@kitajs/runtime@1.1.14(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
+  /@kitajs/runtime@1.1.14(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
     resolution: {integrity: sha512-5B9vRYJ8QmZlen+EUPC4H0uRnQInLSyWkrUkaV5CbAlQi+SqFnvWHjxUcGo41ifO5Vw0ii6cBNdEGFMu31ls2Q==}
     peerDependencies:
       fastify: ^4.24.3
@@ -349,8 +349,8 @@ packages:
       '@fastify/sensible': 5.5.0
       '@fastify/swagger': 8.12.0
       '@fastify/swagger-ui': 1.10.1
-      '@kitajs/common': 1.1.14(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
-      fastify: 4.25.1
+      '@kitajs/common': 1.1.14(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+      fastify: 4.25.2
       fastify-plugin: 4.5.1
       tslib: 2.6.2
       type-fest: 4.7.1
@@ -373,13 +373,13 @@ packages:
       typescript: 5.3.3
       yargs: 17.7.2
 
-  /@kitajs/ts-plugin@1.1.19(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
+  /@kitajs/ts-plugin@1.1.19(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3):
     resolution: {integrity: sha512-xVvXSfsbImahR3jpwQX/0ESvDXta/YKf+/GKAe0SsTJ3KtMAWrOX9P7lJOodFFLu8XPGmJ9AJtH2tIsVsYf5Cw==}
     peerDependencies:
       typescript: ^5.2
     dependencies:
-      '@kitajs/common': 1.1.14(fastify@4.25.1)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
-      '@kitajs/parser': 1.1.19(fastify@4.25.1)(typescript@5.3.3)
+      '@kitajs/common': 1.1.14(fastify@4.25.2)(ts-json-schema-generator@1.4.0)(typescript@5.3.3)
+      '@kitajs/parser': 1.1.19(fastify@4.25.2)(typescript@5.3.3)
       deasync: 0.1.29
       tslib: 2.6.2
       typescript: 5.3.3
@@ -1353,8 +1353,8 @@ packages:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
     dev: false
 
-  /fastify@4.25.1:
-    resolution: {integrity: sha512-D8d0rv61TwqoAS7lom2tvIlgVMlx88lLsiwXyWNjA7CU/LC/mx/Gp2WAlC0S/ABq19U+y/aRvYFG5xLUu2aMrg==}
+  /fastify@4.25.2:
+    resolution: {integrity: sha512-SywRouGleDHvRh054onj+lEZnbC1sBCLkR0UY3oyJwjD4BdZJUrxBqfkfCaqn74pVCwBaRHGuL3nEWeHbHzAfw==}
     dependencies:
       '@fastify/ajv-compiler': 3.5.0
       '@fastify/error': 3.4.1
