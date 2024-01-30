@@ -25,7 +25,7 @@ dependencies:
     version: 6.12.0
   '@kitajs/html':
     specifier: ^3.1.1
-    version: 3.1.1(@kitajs/ts-html-plugin@1.3.3)
+    version: 3.1.1(@kitajs/ts-html-plugin@1.3.4)
   '@kitajs/runtime':
     specifier: ^1.1.15
     version: 1.1.15(fastify@4.25.2)(ts-json-schema-generator@1.5.0)(typescript@5.3.3)
@@ -56,8 +56,8 @@ devDependencies:
     specifier: ^1.1.28
     version: 1.1.28(@types/node@20.11.10)(fastify@4.25.2)(ts-json-schema-generator@1.5.0)(typescript@5.3.3)
   '@kitajs/ts-html-plugin':
-    specifier: ^1.3.3
-    version: 1.3.3(@kitajs/html@3.1.1)(typescript@5.3.3)
+    specifier: ^1.3.4
+    version: 1.3.4(@kitajs/html@3.1.1)(typescript@5.3.3)
   '@kitajs/ts-plugin':
     specifier: ^1.1.20
     version: 1.1.20(fastify@4.25.2)(ts-json-schema-generator@1.5.0)(typescript@5.3.3)
@@ -326,13 +326,13 @@ packages:
       - typescript
     dev: true
 
-  /@kitajs/html@3.1.1(@kitajs/ts-html-plugin@1.3.3):
+  /@kitajs/html@3.1.1(@kitajs/ts-html-plugin@1.3.4):
     resolution: {integrity: sha512-tm7Vgb6ItXevyGYZC3ycikPN2wslVVCpPcO1o9W9rf20aGrUsn3/GxBbTbu7MIqNLVJ5L+5XMxyfUSIP41lMZA==}
     engines: {node: '>=12'}
     peerDependencies:
       '@kitajs/ts-html-plugin': '>=1.3.3'
     dependencies:
-      '@kitajs/ts-html-plugin': 1.3.3(@kitajs/html@3.1.1)(typescript@5.3.3)
+      '@kitajs/ts-html-plugin': 1.3.4(@kitajs/html@3.1.1)(typescript@5.3.3)
       csstype: 3.1.3
 
   /@kitajs/parser@1.1.20(fastify@4.25.2)(typescript@5.3.3):
@@ -370,14 +370,14 @@ packages:
       - typescript
     dev: false
 
-  /@kitajs/ts-html-plugin@1.3.3(@kitajs/html@3.1.1)(typescript@5.3.3):
-    resolution: {integrity: sha512-qam/xc4zgP9e/CeSlBcpmJ5BOf9jCUr7qee6KcxzuFXN8fFf8IeNph46ukrQCXk0tEiItd48BnkkL0jEAozdeg==}
+  /@kitajs/ts-html-plugin@1.3.4(@kitajs/html@3.1.1)(typescript@5.3.3):
+    resolution: {integrity: sha512-AAht1OvLkQizJ59DM70qBgb0VwdyW9KUtDaH66JrfanMMvSSoM598WspJrVdVbe50olw69H+nnTj0lEfNDVmPQ==}
     hasBin: true
     peerDependencies:
-      '@kitajs/html': ^3.0.10
+      '@kitajs/html': ^3.1.1
       typescript: ^5.2.2
     dependencies:
-      '@kitajs/html': 3.1.1(@kitajs/ts-html-plugin@1.3.3)
+      '@kitajs/html': 3.1.1(@kitajs/ts-html-plugin@1.3.4)
       chalk: 4.1.2
       tslib: 2.6.2
       typescript: 5.3.3
