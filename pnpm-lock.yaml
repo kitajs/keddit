@@ -27,8 +27,8 @@ dependencies:
     specifier: ^3.1.2
     version: 3.1.2(@kitajs/ts-html-plugin@1.3.4)
   '@kitajs/runtime':
-    specifier: ^1.1.15
-    version: 1.1.15(fastify@4.26.1)(ts-json-schema-generator@1.5.0)(typescript@5.3.3)
+    specifier: ^1.1.16
+    version: 1.1.16(fastify-html@0.3.3)(fastify@4.26.1)(ts-json-schema-generator@1.5.0)(typescript@5.3.3)
   '@prisma/client':
     specifier: 5.10.2
     version: 5.10.2(prisma@5.10.2)
@@ -173,19 +173,15 @@ packages:
       steed: 1.1.3
     dev: false
 
-  /@fastify/multipart@8.0.0:
-    resolution: {integrity: sha512-xaH1pGIqYnIJjYs5qG6ryhPSFnWuJIfSXYqEUtzmcyREkMk0SwONd2y+SZ9JXfDmETAC/Ogtc/SRbz+AjZhCkw==}
+  /@fastify/multipart@8.1.0:
+    resolution: {integrity: sha512-sRX9X4ZhAqRbe2kDvXY2NK7i6Wf1Rm2g/CjpGYYM7+Np8E6uWQXcj761j08qPfPO8PJXM+vJ7yrKbK1GPB+OeQ==}
     dependencies:
       '@fastify/busboy': 1.2.1
       '@fastify/deepmerge': 1.3.0
       '@fastify/error': 3.4.1
-      '@fastify/swagger': 8.12.2
-      '@fastify/swagger-ui': 1.10.1
       fastify-plugin: 4.5.1
       secure-json-parse: 2.7.0
       stream-wormhole: 1.1.0
-    transitivePeerDependencies:
-      - supports-color
     dev: false
 
   /@fastify/send@2.1.0:
@@ -221,28 +217,8 @@ packages:
       p-limit: 3.1.0
     dev: false
 
-  /@fastify/swagger-ui@1.10.1:
-    resolution: {integrity: sha512-u3EJqNKvVr3X+6jY5i6pbs6/tXCrSlqc2Y+PVjnHBTOGh/d36uHMz+z4jPFy9gie2my6iHUrAdM8itlVmoUjog==}
-    dependencies:
-      '@fastify/static': 6.12.0
-      fastify-plugin: 4.5.1
-      openapi-types: 12.1.3
-      rfdc: 1.3.0
-      yaml: 2.3.4
-    dev: false
-
-  /@fastify/swagger-ui@2.0.1:
-    resolution: {integrity: sha512-sQnufSdQ5kJxaTxBisWYQjkunECuRymYRZYEZEEPpmLUzzZoS22tDLVumb3c1TV4MAlD3L1LTLpxLSXcFL+OZw==}
-    dependencies:
-      '@fastify/static': 6.12.0
-      fastify-plugin: 4.5.1
-      openapi-types: 12.1.3
-      rfdc: 1.3.0
-      yaml: 2.3.4
-    dev: false
-
-  /@fastify/swagger@8.12.2:
-    resolution: {integrity: sha512-tux8oxrxrYpxwjkqJigzgFJIz4EZUecAMqnHr6RL/yjStWODLT89A7sCh5oL2r2uD+/N5z3wGwj7WmkPOeY5Iw==}
+  /@fastify/swagger@8.14.0:
+    resolution: {integrity: sha512-sGiznEb3rl6pKGGUZ+JmfI7ct5cwbTQGo+IjewaTvtzfrshnryu4dZwEsjw0YHABpBA+kCz3kpRaHB7qpa67jg==}
     dependencies:
       fastify-plugin: 4.5.1
       json-schema-resolver: 2.0.0
@@ -309,7 +285,7 @@ packages:
       fastify: 4.26.1
       ts-json-schema-generator: 1.5.0
       tslib: 2.6.2
-      type-fest: 4.8.3
+      type-fest: 4.10.3
       typescript: 5.3.3
 
   /@kitajs/generator@1.1.25(fastify@4.26.1)(ts-json-schema-generator@1.5.0)(typescript@5.3.3):
@@ -350,21 +326,22 @@ packages:
       - fastify
     dev: true
 
-  /@kitajs/runtime@1.1.15(fastify@4.26.1)(ts-json-schema-generator@1.5.0)(typescript@5.3.3):
-    resolution: {integrity: sha512-uzyOmdllZbhXu/g/O40FpkFEaAaC+rkgvUCjTXdhVpEC54Waz8A4NN+GxU/0vMb9FPre/dL6a5WItc/k0GNquQ==}
+  /@kitajs/runtime@1.1.16(fastify-html@0.3.3)(fastify@4.26.1)(ts-json-schema-generator@1.5.0)(typescript@5.3.3):
+    resolution: {integrity: sha512-MFYVisI5DMVIYApn6K+RobCHjPW7/1AGCPk7fufrqq/+veT94wwBlc0AWCt4lbwQzrEFiNCvlD1NHzHnoKaRbA==}
     peerDependencies:
-      fastify: ^4.25.2
+      fastify: ^4.26
     dependencies:
-      '@fastify/multipart': 8.0.0
+      '@fastify/multipart': 8.1.0
       '@fastify/sensible': 5.5.0
-      '@fastify/swagger': 8.12.2
-      '@fastify/swagger-ui': 2.0.1
+      '@fastify/swagger': 8.14.0
       '@kitajs/common': 1.1.15(fastify@4.26.1)(ts-json-schema-generator@1.5.0)(typescript@5.3.3)
+      '@scalar/fastify-api-reference': 1.17.3(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.1)
       fastify: 4.26.1
       fastify-plugin: 4.5.1
       tslib: 2.6.2
-      type-fest: 4.8.3
+      type-fest: 4.10.3
     transitivePeerDependencies:
+      - fastify-html
       - supports-color
       - ts-json-schema-generator
       - typescript
@@ -623,6 +600,19 @@ packages:
     resolution: {integrity: sha512-nqXP6vHiY2PIsebBAuDeWiUYg8h8mfjBckHh6Jezuwej0QJNnjDiOq30uesmg+JXxGk99nqyG3B7wpcOODzXvg==}
     dependencies:
       '@prisma/debug': 5.10.2
+
+  /@scalar/fastify-api-reference@1.17.3(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.1):
+    resolution: {integrity: sha512-MNL/qmzh9bmw4XSItHrdlXi1N3M0Y/RPsOQdXd2novlJ99EoCtzU/3JosnIJZe5pUd2nvR9p+JV8s2+G8VN9Hg==}
+    engines: {node: '>=18'}
+    peerDependencies:
+      fastify: ^4.0.0
+      fastify-html: ^0.3.0
+      fastify-plugin: ^4.0.0
+    dependencies:
+      fastify: 4.26.1
+      fastify-html: 0.3.3
+      fastify-plugin: 4.5.1
+    dev: false
 
   /@tsconfig/node10@1.0.9:
     resolution: {integrity: sha512-jNsYVVxU8v5g43Erja32laIDHXeoNvFEpX33OK4d6hljo3jDhCBDhx5dhCCTMWUojscpAagGiRkBKxpdl9fxqA==}
@@ -1293,6 +1283,13 @@ packages:
       reusify: 1.0.4
     dev: false
 
+  /fastify-html@0.3.3:
+    resolution: {integrity: sha512-gXOrdGOd7AWxMMmZl2esd/MgenEn5i9CApO7d6dkXZV/8kNn3/dm/VfkRUfTzvpVJUAsYM2FR+6bYHKcsC8p7w==}
+    dependencies:
+      fastify-plugin: 4.5.1
+      ghtml: 1.0.1
+    dev: false
+
   /fastify-plugin@4.5.1:
     resolution: {integrity: sha512-stRHYGeuqpEZTL1Ef0Ovr2ltazUT9g844X5z/zEBFLG8RYlpDiOCIG+ATvYEp+/zmc7sN29mcIMp8gvYplYPIQ==}
     dev: false
@@ -1406,6 +1403,11 @@ packages:
     resolution: {integrity: sha512-ts6Wi+2j3jQjqi70w5AlN8DFnkSwC+MqmxEzdEALB2qXZYV3X/b1CTfgPLGJNMeAWxdPfU8FO1ms3NUfaHCPYg==}
     engines: {node: '>=10'}
     dev: true
+
+  /ghtml@1.0.1:
+    resolution: {integrity: sha512-UazsDitjsbxCNksuUINln98LE+YNau/AaLJP752+Hac1zhgnwmwPILKSVaiuJ/ET0XvyQ/j8eEkUXUM10YHvMA==}
+    engines: {node: '>=18'}
+    dev: false
 
   /git-hooks-list@3.1.0:
     resolution: {integrity: sha512-LF8VeHeR7v+wAbXqfgRlTSX/1BJR9Q1vEMR8JAz1cEg6GX07+zyj3sAdDvYjj/xnlIfVuGgj4qBei1K3hKH+PA==}
@@ -2814,9 +2816,14 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
+  /type-fest@4.10.3:
+    resolution: {integrity: sha512-JLXyjizi072smKGGcZiAJDCNweT8J+AuRxmPZ1aG7TERg4ijx9REl8CNhbr36RV4qXqL1gO1FF9HL8OkVmmrsA==}
+    engines: {node: '>=16'}
+
   /type-fest@4.8.3:
     resolution: {integrity: sha512-//BaTm14Q/gHBn09xlnKNqfI8t6bmdzx2DXYfPBNofN0WUybCEUDcbCWcTa0oF09lzLjZgPphXAsvRiMK0V6Bw==}
     engines: {node: '>=16'}
+    dev: true
 
   /type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
