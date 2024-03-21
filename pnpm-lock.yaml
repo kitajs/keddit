@@ -28,7 +28,7 @@ dependencies:
     version: 3.1.2(@kitajs/ts-html-plugin@1.3.4)
   '@kitajs/runtime':
     specifier: ^1.1.16
-    version: 1.1.16(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
+    version: 1.1.16(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
   '@prisma/client':
     specifier: 5.11.0
     version: 5.11.0(prisma@5.11.0)
@@ -51,16 +51,16 @@ dependencies:
 devDependencies:
   '@arthurfiorette/prettier-config':
     specifier: ^1.0.12
-    version: 1.0.12(prettier@3.2.5)(typescript@5.4.2)
+    version: 1.0.12(prettier@3.2.5)(typescript@5.4.3)
   '@kitajs/cli':
     specifier: ^1.1.29
-    version: 1.1.29(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
+    version: 1.1.29(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
   '@kitajs/ts-html-plugin':
     specifier: ^1.3.4
-    version: 1.3.4(@kitajs/html@3.1.2)(typescript@5.4.2)
+    version: 1.3.4(@kitajs/html@3.1.2)(typescript@5.4.3)
   '@kitajs/ts-plugin':
     specifier: ^1.1.21
-    version: 1.1.21(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
+    version: 1.1.21(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
   '@types/node':
     specifier: ^20.11.30
     version: 20.11.30
@@ -77,12 +77,12 @@ devDependencies:
     specifier: ^5.11.0
     version: 5.11.0
   typescript:
-    specifier: ^5.4.2
-    version: 5.4.2
+    specifier: ^5.4.3
+    version: 5.4.3
 
 packages:
 
-  /@arthurfiorette/prettier-config@1.0.12(prettier@3.2.5)(typescript@5.4.2):
+  /@arthurfiorette/prettier-config@1.0.12(prettier@3.2.5)(typescript@5.4.3):
     resolution: {integrity: sha512-jR36bHWLVv71FuKkU9XYeBe6ry/AN98EDh0WVyfo3QwjJFbhpeElFTS4nluwxeXfu6nJ8/Hv8bJf6cYeXzfeoA==}
     hasBin: true
     peerDependencies:
@@ -90,7 +90,7 @@ packages:
     dependencies:
       prettier: 3.2.5
       prettier-plugin-jsdoc: 1.1.1(prettier@3.2.5)
-      prettier-plugin-organize-imports: 3.2.3(prettier@3.2.5)(typescript@5.4.2)
+      prettier-plugin-organize-imports: 3.2.3(prettier@3.2.5)(typescript@5.4.3)
       prettier-plugin-packagejson: 2.4.6(prettier@3.2.5)
     transitivePeerDependencies:
       - '@volar/vue-language-plugin-pug'
@@ -222,15 +222,15 @@ packages:
       - supports-color
     dev: false
 
-  /@kitajs/cli@1.1.29(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2):
+  /@kitajs/cli@1.1.29(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
     resolution: {integrity: sha512-9Q1TamAUJqHHUuJhRPOQHSCktG5C8h8RKN2R/Yl3FPyRTA5UkjdTTaEp4A7OBsUWH50XhoiKUVR3maXxYV6R3g==}
     hasBin: true
     peerDependencies:
       typescript: ^5.3
     dependencies:
-      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
-      '@kitajs/generator': 1.1.25(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
-      '@kitajs/parser': 1.1.21(fastify@4.26.2)(typescript@5.4.2)
+      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
+      '@kitajs/generator': 1.1.25(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
+      '@kitajs/parser': 1.1.21(fastify@4.26.2)(typescript@5.4.3)
       '@oclif/core': 3.19.6
       '@oclif/plugin-autocomplete': 3.0.10
       '@oclif/plugin-help': 6.0.14
@@ -240,14 +240,14 @@ packages:
       chalk: 4.1.2
       deepmerge: 4.3.1
       tslib: 2.6.2
-      typescript: 5.4.2
+      typescript: 5.4.3
     transitivePeerDependencies:
       - fastify
       - supports-color
       - ts-json-schema-generator
     dev: true
 
-  /@kitajs/common@1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2):
+  /@kitajs/common@1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
     resolution: {integrity: sha512-7HsCoiIFWSyfdqpllAOPTCKOTfKFqZt1c6bDp5vT5lrg7tO8TvT4NnxcCUWDOkeK2Ag1nmY1M2zD1/e+qUdNLA==}
     peerDependencies:
       fastify: ^4.25.2
@@ -260,14 +260,14 @@ packages:
       ts-json-schema-generator: 1.5.0
       tslib: 2.6.2
       type-fest: 4.10.3
-      typescript: 5.4.2
+      typescript: 5.4.3
 
-  /@kitajs/generator@1.1.25(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2):
+  /@kitajs/generator@1.1.25(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
     resolution: {integrity: sha512-BFntZ6CAd5p2R7PbMEYKhFaKVurywP3VguC/pcRR44AzB/6ATZU7EjLn3ZqpzMh5WQoX02QQueA7rjgv2xCsYg==}
     dependencies:
-      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
+      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
       json-stable-stringify: 1.1.0
-      ts-writer: 1.3.1(typescript@5.4.2)
+      ts-writer: 1.3.1(typescript@5.4.3)
       tslib: 2.6.2
       type-fest: 4.10.3
     transitivePeerDependencies:
@@ -282,25 +282,25 @@ packages:
     peerDependencies:
       '@kitajs/ts-html-plugin': '>=1.3.3'
     dependencies:
-      '@kitajs/ts-html-plugin': 1.3.4(@kitajs/html@3.1.2)(typescript@5.4.2)
+      '@kitajs/ts-html-plugin': 1.3.4(@kitajs/html@3.1.2)(typescript@5.4.3)
       csstype: 3.1.3
 
-  /@kitajs/parser@1.1.21(fastify@4.26.2)(typescript@5.4.2):
+  /@kitajs/parser@1.1.21(fastify@4.26.2)(typescript@5.4.3):
     resolution: {integrity: sha512-ukY7AOoIPk12Xvm3C15vAOBp+HgoA3Ce0cQXDhAtDf8Xs19ehMneSNF5Wz+mAB+CG8KYZ/bMz3fvLSEqpQIcpQ==}
     peerDependencies:
       typescript: ^5.3
     dependencies:
-      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
+      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
       deepmerge: 4.3.1
       ts-json-schema-generator: 1.5.0
       tslib: 2.6.2
       type-fest: 4.10.3
-      typescript: 5.4.2
+      typescript: 5.4.3
     transitivePeerDependencies:
       - fastify
     dev: true
 
-  /@kitajs/runtime@1.1.16(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2):
+  /@kitajs/runtime@1.1.16(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
     resolution: {integrity: sha512-MFYVisI5DMVIYApn6K+RobCHjPW7/1AGCPk7fufrqq/+veT94wwBlc0AWCt4lbwQzrEFiNCvlD1NHzHnoKaRbA==}
     peerDependencies:
       fastify: ^4.26
@@ -308,7 +308,7 @@ packages:
       '@fastify/multipart': 8.1.0
       '@fastify/sensible': 5.5.0
       '@fastify/swagger': 8.14.0
-      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
+      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
       '@scalar/fastify-api-reference': 1.17.3(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
       fastify: 4.26.2
       fastify-plugin: 4.5.1
@@ -321,7 +321,7 @@ packages:
       - typescript
     dev: false
 
-  /@kitajs/ts-html-plugin@1.3.4(@kitajs/html@3.1.2)(typescript@5.4.2):
+  /@kitajs/ts-html-plugin@1.3.4(@kitajs/html@3.1.2)(typescript@5.4.3):
     resolution: {integrity: sha512-AAht1OvLkQizJ59DM70qBgb0VwdyW9KUtDaH66JrfanMMvSSoM598WspJrVdVbe50olw69H+nnTj0lEfNDVmPQ==}
     hasBin: true
     peerDependencies:
@@ -331,19 +331,19 @@ packages:
       '@kitajs/html': 3.1.2(@kitajs/ts-html-plugin@1.3.4)
       chalk: 4.1.2
       tslib: 2.6.2
-      typescript: 5.4.2
+      typescript: 5.4.3
       yargs: 17.7.2
 
-  /@kitajs/ts-plugin@1.1.21(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2):
+  /@kitajs/ts-plugin@1.1.21(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
     resolution: {integrity: sha512-jjU5zFM2p52tiJkhCdKBd5Ra997O7UsVx1i7rp8txcPANTmq0Up1ZHmkQsosJFwu2s+fl5AQbuBXRghcxcQ1XQ==}
     peerDependencies:
       typescript: ^5.3
     dependencies:
-      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.2)
-      '@kitajs/parser': 1.1.21(fastify@4.26.2)(typescript@5.4.2)
+      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
+      '@kitajs/parser': 1.1.21(fastify@4.26.2)(typescript@5.4.3)
       deasync: 0.1.29
       tslib: 2.6.2
-      typescript: 5.4.2
+      typescript: 5.4.3
     transitivePeerDependencies:
       - fastify
       - ts-json-schema-generator
@@ -2197,7 +2197,7 @@ packages:
       - supports-color
     dev: true
 
-  /prettier-plugin-organize-imports@3.2.3(prettier@3.2.5)(typescript@5.4.2):
+  /prettier-plugin-organize-imports@3.2.3(prettier@3.2.5)(typescript@5.4.3):
     resolution: {integrity: sha512-KFvk8C/zGyvUaE3RvxN2MhCLwzV6OBbFSkwZ2OamCrs9ZY4i5L77jQ/w4UmUr+lqX8qbaqVq6bZZkApn+IgJSg==}
     peerDependencies:
       '@volar/vue-language-plugin-pug': ^1.0.4
@@ -2211,7 +2211,7 @@ packages:
         optional: true
     dependencies:
       prettier: 3.2.5
-      typescript: 5.4.2
+      typescript: 5.4.3
     dev: true
 
   /prettier-plugin-packagejson@2.4.6(prettier@3.2.5):
@@ -2621,14 +2621,14 @@ packages:
       safe-stable-stringify: 2.4.3
       typescript: 5.3.3
 
-  /ts-writer@1.3.1(typescript@5.4.2):
+  /ts-writer@1.3.1(typescript@5.4.3):
     resolution: {integrity: sha512-I/uvF/evEuXr0ym7imZnmRDiPeuBpFrj4Zsk8gJyIW3kca8uMLbImnwPQzrsOCQ8JjLQuWSLSJqn0VBfRVWl9A==}
     peerDependencies:
       typescript: ^5.2.2
     dependencies:
       json-stable-stringify: 1.1.0
       tslib: 2.6.2
-      typescript: 5.4.2
+      typescript: 5.4.3
     dev: true
 
   /tslib@2.6.2:
@@ -2662,8 +2662,8 @@ packages:
     engines: {node: '>=14.17'}
     hasBin: true
 
-  /typescript@5.4.2:
-    resolution: {integrity: sha512-+2/g0Fds1ERlP6JsakQQDXjZdZMM+rqpamFZJEKh4kwTIn3iDkgKtby0CeNd5ATNZ4Ry1ax15TMx0W2V+miizQ==}
+  /typescript@5.4.3:
+    resolution: {integrity: sha512-KrPd3PKaCLr78MalgiwJnA25Nm8HAmdwN3mYUYZgG/wizIo9EainNVQI9/yDavtVFRN2h3k8uf3GLHuhDMgEHg==}
     engines: {node: '>=14.17'}
     hasBin: true
 
