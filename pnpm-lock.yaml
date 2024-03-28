@@ -59,8 +59,8 @@ devDependencies:
     specifier: ^1.3.4
     version: 1.3.4(@kitajs/html@3.1.2)(typescript@5.4.3)
   '@kitajs/ts-plugin':
-    specifier: ^1.1.21
-    version: 1.1.21(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
+    specifier: ^1.1.23
+    version: 1.1.23(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
   '@types/node':
     specifier: ^20.11.30
     version: 20.11.30
@@ -262,6 +262,22 @@ packages:
       type-fest: 4.10.3
       typescript: 5.4.3
 
+  /@kitajs/common@1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
+    resolution: {integrity: sha512-SOUjYe5HAuEMhoh7256JX/G5i3VYvMM5v4z3M1hR6FGloAaeBORr5GVvUUFtJ6LvRsYPrAEb1Upk4yv+8c6GZA==}
+    peerDependencies:
+      fastify: ^4.26
+      ts-json-schema-generator: ^1.5.0
+      typescript: ^5.3.3
+    dependencies:
+      '@types/json-schema': 7.0.15
+      deepmerge: 4.3.1
+      fastify: 4.26.2
+      ts-json-schema-generator: 1.5.0
+      tslib: 2.6.2
+      type-fest: 4.14.0
+      typescript: 5.4.3
+    dev: true
+
   /@kitajs/generator@1.1.25(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
     resolution: {integrity: sha512-BFntZ6CAd5p2R7PbMEYKhFaKVurywP3VguC/pcRR44AzB/6ATZU7EjLn3ZqpzMh5WQoX02QQueA7rjgv2xCsYg==}
     dependencies:
@@ -295,6 +311,21 @@ packages:
       ts-json-schema-generator: 1.5.0
       tslib: 2.6.2
       type-fest: 4.10.3
+      typescript: 5.4.3
+    transitivePeerDependencies:
+      - fastify
+    dev: true
+
+  /@kitajs/parser@1.1.23(fastify@4.26.2)(typescript@5.4.3):
+    resolution: {integrity: sha512-MQPpoQfPXj/L7ZJfL1gjQAGJuQjoQlzFuHPh32no5Ue/JlTvc1KFbDvZ/9deYSa+ly2B/yT7vmmf9RKtty/Lzw==}
+    peerDependencies:
+      typescript: ^5.3
+    dependencies:
+      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
+      deepmerge: 4.3.1
+      ts-json-schema-generator: 1.5.0
+      tslib: 2.6.2
+      type-fest: 4.14.0
       typescript: 5.4.3
     transitivePeerDependencies:
       - fastify
@@ -334,13 +365,13 @@ packages:
       typescript: 5.4.3
       yargs: 17.7.2
 
-  /@kitajs/ts-plugin@1.1.21(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
-    resolution: {integrity: sha512-jjU5zFM2p52tiJkhCdKBd5Ra997O7UsVx1i7rp8txcPANTmq0Up1ZHmkQsosJFwu2s+fl5AQbuBXRghcxcQ1XQ==}
+  /@kitajs/ts-plugin@1.1.23(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
+    resolution: {integrity: sha512-EHFUplA8tibUjbcxOGMrFlyGE+Tln0Z3azPaVGmp9rSLos0DG2UAo5EGK2sJDRUuvtmsqRB3ds9bfZ49rqqPuQ==}
     peerDependencies:
       typescript: ^5.3
     dependencies:
-      '@kitajs/common': 1.1.15(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
-      '@kitajs/parser': 1.1.21(fastify@4.26.2)(typescript@5.4.3)
+      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
+      '@kitajs/parser': 1.1.23(fastify@4.26.2)(typescript@5.4.3)
       deasync: 0.1.29
       tslib: 2.6.2
       typescript: 5.4.3
@@ -2648,6 +2679,11 @@ packages:
   /type-fest@4.10.3:
     resolution: {integrity: sha512-JLXyjizi072smKGGcZiAJDCNweT8J+AuRxmPZ1aG7TERg4ijx9REl8CNhbr36RV4qXqL1gO1FF9HL8OkVmmrsA==}
     engines: {node: '>=16'}
+
+  /type-fest@4.14.0:
+    resolution: {integrity: sha512-on5/Cw89wwqGZQu+yWO0gGMGu8VNxsaW9SB2HE8yJjllEk7IDTwnSN1dUVldYILhYPN5HzD7WAaw2cc/jBfn0Q==}
+    engines: {node: '>=16'}
+    dev: true
 
   /type-is@1.6.18:
     resolution: {integrity: sha512-TkRKr9sUTxEH8MdfuCSP7VizJyzRNMjj2J2do2Jr3Kym598JVdEksuzPQCnlFPW4ky9Q+iA+ma9BGm06XQBy8g==}
