@@ -42,7 +42,7 @@
     "@kitajs/cli": "^1.1.31",
     "@kitajs/ts-html-plugin": "^1.3.4",
     "@kitajs/ts-plugin": "^1.1.23",
-    "@types/node": "^20.12.2",
+    "@types/node": "^20.12.3",
     "concurrently": "^8.2.2",
     "pino-pretty": "^10.3.1",
     "prettier": "^3.2.5",
