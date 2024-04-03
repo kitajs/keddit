@@ -27,8 +27,8 @@ dependencies:
     specifier: ^3.1.2
     version: 3.1.2(@kitajs/ts-html-plugin@1.3.4)
   '@kitajs/runtime':
-    specifier: ^1.1.18
-    version: 1.1.18(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
+    specifier: ^1.1.19
+    version: 1.1.19(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
   '@prisma/client':
     specifier: 5.11.0
     version: 5.11.0(prisma@5.11.0)
@@ -300,8 +300,9 @@ packages:
       - fastify
     dev: true
 
-  /@kitajs/runtime@1.1.18(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
-    resolution: {integrity: sha512-oE39kntFkWwjlLnY1Ti/8kXtlBpdqXLJ3WQLaVPgZqAOC0Qd/hsaUcnLtZlaULex/iZh/DxSaql5Chv6zWk9vQ==}
+  /@kitajs/runtime@1.1.19(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3):
+    resolution: {integrity: sha512-p+fscaPh0jfATjbk8JD2iuDLbc0XNL3XzJ1/p/PaWH88tdRh75JIonuTtcRITIPz0MBm/qF0Y51DpWkdEmthxA==}
+    engines: {node: '>=20.0.0'}
     peerDependencies:
       fastify: ^4.26
     dependencies:
