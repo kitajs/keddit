@@ -62,8 +62,8 @@ devDependencies:
     specifier: ^1.1.23
     version: 1.1.23(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.3)
   '@types/node':
-    specifier: ^20.12.3
-    version: 20.12.3
+    specifier: ^20.12.4
+    version: 20.12.4
   concurrently:
     specifier: ^8.2.2
     version: 8.2.2
@@ -542,7 +542,7 @@ packages:
   /@types/cli-progress@3.11.5:
     resolution: {integrity: sha512-D4PbNRbviKyppS5ivBGyFO29POlySLmA2HyUFE4p5QGazAMM3CwkKWcvTl8gvElSuxRh6FPKL8XmidX873ou4g==}
     dependencies:
-      '@types/node': 20.12.3
+      '@types/node': 20.12.4
     dev: true
 
   /@types/debug@4.1.10:
@@ -564,8 +564,8 @@ packages:
     resolution: {integrity: sha512-AuHIyzR5Hea7ij0P9q7vx7xu4z0C28ucwjAZC0ja7JhINyCnOw8/DnvAPQQ9TfOlCtZAmCERKQX9+o1mgQhuOQ==}
     dev: true
 
-  /@types/node@20.12.3:
-    resolution: {integrity: sha512-sD+ia2ubTeWrOu+YMF+MTAB7E+O7qsMqAbMfW7DG3K1URwhZ5hN1pLlRVGbf4wDFzSfikL05M17EyorS86jShw==}
+  /@types/node@20.12.4:
+    resolution: {integrity: sha512-E+Fa9z3wSQpzgYQdYmme5X3OTuejnnTx88A6p6vkkJosR3KBz+HpE3kqNm98VE6cfLFcISx7zW7MsJkH6KwbTw==}
     dependencies:
       undici-types: 5.26.5
     dev: true
