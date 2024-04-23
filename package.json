@@ -23,7 +23,7 @@
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",
-    "@fastify/etag": "^5.1.0",
+    "@fastify/etag": "^5.2.0",
     "@fastify/formbody": "^7.4.0",
     "@fastify/jwt": "^7.2.4",
     "@fastify/sensible": "^5.5.0",
