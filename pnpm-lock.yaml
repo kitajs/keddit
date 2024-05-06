@@ -15,8 +15,8 @@ dependencies:
     specifier: ^7.4.0
     version: 7.4.0
   '@fastify/jwt':
-    specifier: ^7.2.4
-    version: 7.2.4
+    specifier: ^8.0.1
+    version: 8.0.1
   '@fastify/sensible':
     specifier: ^5.5.0
     version: 5.5.0
@@ -156,12 +156,12 @@ packages:
       fastify-plugin: 4.5.1
     dev: false
 
-  /@fastify/jwt@7.2.4:
-    resolution: {integrity: sha512-aWJzVb3iZb9xIPjfut8YOrkNEKrZA9xyF2C2Hv9nTheFp7CQPGIZMNTyf3848BsD27nw0JLk8jVLZ2g2DfJOoQ==}
+  /@fastify/jwt@8.0.1:
+    resolution: {integrity: sha512-295bd7V6bDCnZOu8MAQgM6r7V1KILB+kdEq1q6nbHfXCnML569n7NSo3WzeLDG6IAqDl+Rhzi1vjxwaNHhRCBA==}
     dependencies:
       '@fastify/error': 3.4.1
       '@lukeed/ms': 2.0.1
-      fast-jwt: 3.3.2
+      fast-jwt: 4.0.1
       fastify-plugin: 4.5.1
       steed: 1.1.3
     dev: false
@@ -1185,9 +1185,9 @@ packages:
       json-schema-ref-resolver: 1.0.1
       rfdc: 1.3.0
 
-  /fast-jwt@3.3.2:
-    resolution: {integrity: sha512-H+JYxaFy2LepiC1AQWM/2hzKlQOWaWUkEnu/yebhYu4+ameb3qG77WiRZ1Ct6YBk6d/ESsNguBfTT5+q0XMtKg==}
-    engines: {node: '>=16 <22'}
+  /fast-jwt@4.0.1:
+    resolution: {integrity: sha512-+mdSoH0QdOdFSbbGBctJu7L1yfXRtbmjbVJ4W/PEjyvivobDena0RKwihtBkOML1P+kUJ1QuewnH8u+mROsR1w==}
+    engines: {node: '>=16'}
     dependencies:
       '@lukeed/ms': 2.0.1
       asn1.js: 5.4.1
