@@ -28,10 +28,10 @@ dependencies:
     version: 3.1.2(@kitajs/ts-html-plugin@1.3.4)
   '@kitajs/runtime':
     specifier: ^1.1.19
-    version: 1.1.19(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5)
+    version: 1.1.19(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5)
   '@prisma/client':
     specifier: 5.12.1
-    version: 5.12.1(prisma@5.12.1)
+    version: 5.12.1(prisma@6.3.1)
   ajv-formats:
     specifier: ^2.1.1
     version: 2.1.1(ajv@8.12.0)
@@ -54,13 +54,13 @@ devDependencies:
     version: 1.0.12(prettier@3.2.5)(typescript@5.4.5)
   '@kitajs/cli':
     specifier: ^1.1.36
-    version: 1.1.36(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5)
+    version: 1.1.36(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5)
   '@kitajs/ts-html-plugin':
     specifier: ^1.3.4
     version: 1.3.4(@kitajs/html@3.1.2)(typescript@5.4.5)
   '@kitajs/ts-plugin':
     specifier: ^1.1.23
-    version: 1.1.23(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5)
+    version: 1.1.23(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5)
   '@types/node':
     specifier: ^20.12.7
     version: 20.12.7
@@ -74,8 +74,8 @@ devDependencies:
     specifier: ^3.2.5
     version: 3.2.5
   prisma:
-    specifier: ^5.12.1
-    version: 5.12.1
+    specifier: ^6.3.1
+    version: 6.3.1(typescript@5.4.5)
   typescript:
     specifier: ^5.4.5
     version: 5.4.5
@@ -222,15 +222,15 @@ packages:
       - supports-color
     dev: false
 
-  /@kitajs/cli@1.1.36(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5):
+  /@kitajs/cli@1.1.36(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5):
     resolution: {integrity: sha512-XJ+PKZMm6DFUL7+0pvVrk4+s3SbpRJFOQfZyk+mxg99rb5vhtwz5NIuJVmYLcrIGcQW1e8YzrscpS+z/H8D9QA==}
     engines: {node: '>=20.0.0'}
     hasBin: true
     peerDependencies:
       typescript: ^5.3
     dependencies:
-      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5)
-      '@kitajs/generator': 1.1.27(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5)
+      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5)
+      '@kitajs/generator': 1.1.27(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5)
       '@kitajs/parser': 1.1.23(fastify@4.26.2)(typescript@5.4.5)
       '@oclif/core': 3.26.0
       '@oclif/plugin-autocomplete': 3.0.10
@@ -263,11 +263,27 @@ packages:
       tslib: 2.6.2
       type-fest: 4.14.0
       typescript: 5.4.5
+    dev: true
 
-  /@kitajs/generator@1.1.27(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5):
+  /@kitajs/common@1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5):
+    resolution: {integrity: sha512-SOUjYe5HAuEMhoh7256JX/G5i3VYvMM5v4z3M1hR6FGloAaeBORr5GVvUUFtJ6LvRsYPrAEb1Upk4yv+8c6GZA==}
+    peerDependencies:
+      fastify: ^4.26
+      ts-json-schema-generator: ^1.5.0
+      typescript: ^5.3.3
+    dependencies:
+      '@types/json-schema': 7.0.15
+      deepmerge: 4.3.1
+      fastify: 4.26.2
+      ts-json-schema-generator: 1.5.1
+      tslib: 2.6.2
+      type-fest: 4.14.0
+      typescript: 5.4.5
+
+  /@kitajs/generator@1.1.27(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5):
     resolution: {integrity: sha512-jygcTClrzrxOdaFCGFhAJKjPNVB5HqP9uqYbaZMVvXhRwrJT/+Q86Qy2HUgE+8qwp23idJNsPYnNMpAN93VKvw==}
     dependencies:
-      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5)
+      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5)
       json-stable-stringify: 1.1.1
       ts-writer: 1.3.1(typescript@5.4.5)
       tslib: 2.6.2
@@ -302,7 +318,7 @@ packages:
       - fastify
     dev: true
 
-  /@kitajs/runtime@1.1.19(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5):
+  /@kitajs/runtime@1.1.19(fastify-html@0.3.3)(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5):
     resolution: {integrity: sha512-p+fscaPh0jfATjbk8JD2iuDLbc0XNL3XzJ1/p/PaWH88tdRh75JIonuTtcRITIPz0MBm/qF0Y51DpWkdEmthxA==}
     engines: {node: '>=20.0.0'}
     peerDependencies:
@@ -311,7 +327,7 @@ packages:
       '@fastify/multipart': 8.1.0
       '@fastify/sensible': 5.5.0
       '@fastify/swagger': 8.14.0
-      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5)
+      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5)
       '@scalar/fastify-api-reference': 1.20.10(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2)
       fastify: 4.26.2
       fastify-plugin: 4.5.1
@@ -337,12 +353,12 @@ packages:
       typescript: 5.4.5
       yargs: 17.7.2
 
-  /@kitajs/ts-plugin@1.1.23(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5):
+  /@kitajs/ts-plugin@1.1.23(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5):
     resolution: {integrity: sha512-EHFUplA8tibUjbcxOGMrFlyGE+Tln0Z3azPaVGmp9rSLos0DG2UAo5EGK2sJDRUuvtmsqRB3ds9bfZ49rqqPuQ==}
     peerDependencies:
       typescript: ^5.3
     dependencies:
-      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.0)(typescript@5.4.5)
+      '@kitajs/common': 1.1.16(fastify@4.26.2)(ts-json-schema-generator@1.5.1)(typescript@5.4.5)
       '@kitajs/parser': 1.1.23(fastify@4.26.2)(typescript@5.4.5)
       deasync: 0.1.29
       tslib: 2.6.2
@@ -486,7 +502,7 @@ packages:
       tslib: 2.6.2
     dev: true
 
-  /@prisma/client@5.12.1(prisma@5.12.1):
+  /@prisma/client@5.12.1(prisma@6.3.1):
     resolution: {integrity: sha512-6/JnizEdlSBxDIdiLbrBdMW5NqDxOmhXAJaNXiPpgzAPr/nLZResT6MMpbOHLo5yAbQ1Vv5UU8PTPRzb0WIxdA==}
     engines: {node: '>=16.13'}
     requiresBuild: true
@@ -496,35 +512,35 @@ packages:
       prisma:
         optional: true
     dependencies:
-      prisma: 5.12.1
+      prisma: 6.3.1(typescript@5.4.5)
     dev: false
 
-  /@prisma/debug@5.12.1:
-    resolution: {integrity: sha512-kd/wNsR0klrv79o1ITsbWxYyh4QWuBidvxsXSParPsYSu0ircUmNk3q4ojsgNc3/81b0ozg76iastOG43tbf8A==}
+  /@prisma/debug@6.3.1:
+    resolution: {integrity: sha512-RrEBkd+HLZx+ydfmYT0jUj7wjLiS95wfTOSQ+8FQbvb6vHh5AeKfEPt/XUQ5+Buljj8hltEfOslEW57/wQIVeA==}
 
-  /@prisma/engines-version@5.12.0-21.473ed3124229e22d881cb7addf559799debae1ab:
-    resolution: {integrity: sha512-6yvO8s80Tym61aB4QNtYZfWVmE3pwqe807jEtzm8C5VDe7nw8O1FGX3TXUaXmWV0fQTIAfRbeL2Gwrndabp/0g==}
+  /@prisma/engines-version@6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0:
+    resolution: {integrity: sha512-R/ZcMuaWZT2UBmgX3Ko6PAV3f8//ZzsjRIG1eKqp3f2rqEqVtCv+mtzuH2rBPUC9ujJ5kCb9wwpxeyCkLcHVyA==}
 
-  /@prisma/engines@5.12.1:
-    resolution: {integrity: sha512-HQDdglLw2bZR/TXD2Y+YfDMvi5Q8H+acbswqOsWyq9pPjBLYJ6gzM+ptlTU/AV6tl0XSZLU1/7F4qaWa8bqpJA==}
+  /@prisma/engines@6.3.1:
+    resolution: {integrity: sha512-sXdqEVLyGAJ5/iUoG/Ea5AdHMN71m6PzMBWRQnLmhhOejzqAaEr8rUd623ql6OJpED4s/U4vIn4dg1qkF7vGag==}
     requiresBuild: true
     dependencies:
-      '@prisma/debug': 5.12.1
-      '@prisma/engines-version': 5.12.0-21.473ed3124229e22d881cb7addf559799debae1ab
-      '@prisma/fetch-engine': 5.12.1
-      '@prisma/get-platform': 5.12.1
+      '@prisma/debug': 6.3.1
+      '@prisma/engines-version': 6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0
+      '@prisma/fetch-engine': 6.3.1
+      '@prisma/get-platform': 6.3.1
 
-  /@prisma/fetch-engine@5.12.1:
-    resolution: {integrity: sha512-qSs3KcX1HKcea1A+hlJVK/ljj0PNIUHDxAayGMvgJBqmaN32P9tCidlKz1EGv6WoRFICYnk3Dd/YFLBwnFIozA==}
+  /@prisma/fetch-engine@6.3.1:
+    resolution: {integrity: sha512-HOf/0umOgt+/S2xtZze+FHKoxpVg4YpVxROr6g2YG09VsI3Ipyb+rGvD6QGbCqkq5NTWAAZoOGNL+oy7t+IhaQ==}
     dependencies:
-      '@prisma/debug': 5.12.1
-      '@prisma/engines-version': 5.12.0-21.473ed3124229e22d881cb7addf559799debae1ab
-      '@prisma/get-platform': 5.12.1
+      '@prisma/debug': 6.3.1
+      '@prisma/engines-version': 6.3.0-17.acc0b9dd43eb689cbd20c9470515d719db10d0b0
+      '@prisma/get-platform': 6.3.1
 
-  /@prisma/get-platform@5.12.1:
-    resolution: {integrity: sha512-pgIR+pSvhYHiUcqXVEZS31NrFOTENC9yFUdEAcx7cdQBoZPmHVjtjN4Ss6NzVDMYPrKJJ51U14EhEoeuBlMioQ==}
+  /@prisma/get-platform@6.3.1:
+    resolution: {integrity: sha512-AYLq6Hk9xG73JdLWJ3Ip9Wg/vlP7xPvftGBalsPzKDOHr/ImhwJ09eS8xC2vNT12DlzGxhfk8BkL0ve2OriNhQ==}
     dependencies:
-      '@prisma/debug': 5.12.1
+      '@prisma/debug': 6.3.1
 
   /@scalar/fastify-api-reference@1.20.10(fastify-html@0.3.3)(fastify-plugin@4.5.1)(fastify@4.26.2):
     resolution: {integrity: sha512-o2llnKu70+d/pp87H4XdeT9kYhw+Pq1wtXS30p9VT+VEF41qGDZSmnTAx+qYnP03598UV9iSb1Uf/Rjf6U/w7Q==}
@@ -878,6 +894,11 @@ packages:
   /commander@11.1.0:
     resolution: {integrity: sha512-yPVavfyCcRhmorC7rWlkHn15b4wDVgVmBA7kV4QVBsF7kv/9TKJAbAXVTxvTnwP8HHKjRCJDClKbciiYS7p0DQ==}
     engines: {node: '>=16'}
+    dev: true
+
+  /commander@12.1.0:
+    resolution: {integrity: sha512-Vw8qHK3bZM9y/P10u3Vib8o/DdkvA2OtPtZvD871QKjy74Wj1WSKFILMPRPSdUSx5RFK1arlJzEtA4PkFgnbuA==}
+    engines: {node: '>=18'}
 
   /comment-parser@1.4.1:
     resolution: {integrity: sha512-buhp5kePrmda3vhc5B9t7pUQXAb2Tnd0qgpkIhPhkHXxJpiPJ11H0ZEU0oBpJ2QztSbzG/ZxMj/CHsYJqRHmyg==}
@@ -1233,7 +1254,7 @@ packages:
     resolution: {integrity: sha512-gXOrdGOd7AWxMMmZl2esd/MgenEn5i9CApO7d6dkXZV/8kNn3/dm/VfkRUfTzvpVJUAsYM2FR+6bYHKcsC8p7w==}
     dependencies:
       fastify-plugin: 4.5.1
-      ghtml: 1.0.1
+      ghtml: 1.7.2
     dev: false
 
   /fastify-plugin@4.5.1:
@@ -1320,6 +1341,13 @@ packages:
   /fs.realpath@1.0.0:
     resolution: {integrity: sha512-OO0pH2lK6a0hZnAdau5ItzHPI6pUlvI7jMVnxUQRtw4owF2wk8lOSabtGDCTP4Ggrg2MbGnWO9X8K1t4+fGMDw==}
 
+  /fsevents@2.3.3:
+    resolution: {integrity: sha512-5xoDfX+fL7faATnagmWPpbFtwh/R77WmMMqqHGS65C3vvB0YHrgF+B1YmZ3441tMj5n63k0212XNoJwzlhffQw==}
+    engines: {node: ^8.16.0 || ^10.6.0 || >=11.0.0}
+    os: [darwin]
+    requiresBuild: true
+    optional: true
+
   /function-bind@1.1.2:
     resolution: {integrity: sha512-7XHNxH7qX9xG5mIwxkhumTox/MIRNcOgDrxWsMt2pAr23WHp6MrRlN7FBSFpCpr+oVO0F744iUgR82nJMfG2SA==}
     dev: true
@@ -1352,8 +1380,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /ghtml@1.0.1:
-    resolution: {integrity: sha512-UazsDitjsbxCNksuUINln98LE+YNau/AaLJP752+Hac1zhgnwmwPILKSVaiuJ/ET0XvyQ/j8eEkUXUM10YHvMA==}
+  /ghtml@1.7.2:
+    resolution: {integrity: sha512-ZxhlBYTjyT0yPv9EgXP65OWOafSDVQ24p/Loj6YVERsrVnpsA+DL9l6LKqoePr3uo/al+JD0iJvrDhVyRkeipA==}
     engines: {node: '>=18'}
     dev: false
 
@@ -2379,13 +2407,21 @@ packages:
     hasBin: true
     dev: true
 
-  /prisma@5.12.1:
-    resolution: {integrity: sha512-SkMnb6wyIxTv9ACqiHBI2u9gD6y98qXRoCoLEnZsF6yee5Qg828G+ARrESN+lQHdw4maSZFFSBPPDpvSiVTo0Q==}
-    engines: {node: '>=16.13'}
+  /prisma@6.3.1(typescript@5.4.5):
+    resolution: {integrity: sha512-JKCZWvBC3enxk51tY4TWzS4b5iRt4sSU1uHn2I183giZTvonXaQonzVtjLzpOHE7qu9MxY510kAtFGJwryKe3Q==}
+    engines: {node: '>=18.18'}
     hasBin: true
     requiresBuild: true
+    peerDependencies:
+      typescript: '>=5.1.0'
+    peerDependenciesMeta:
+      typescript:
+        optional: true
     dependencies:
-      '@prisma/engines': 5.12.1
+      '@prisma/engines': 6.3.1
+      typescript: 5.4.5
+    optionalDependencies:
+      fsevents: 2.3.3
 
   /proc-log@3.0.0:
     resolution: {integrity: sha512-++Vn7NS4Xf9NacaU9Xq3URUuqZETPsf8L4j5/ckhaRYsfPeRyzGw+iDjFhV/Jr3uNmTvvddEJFWh5R1gRgUH8A==}
@@ -2521,6 +2557,10 @@ packages:
 
   /safe-stable-stringify@2.4.3:
     resolution: {integrity: sha512-e2bDA2WJT0wxseVd4lsDP4+3ONX6HpMXQa1ZhFQ7SU+GjvORCmShbCMltrtIDfkYhVHrOcPtj+KhmDBdPdZD1g==}
+    engines: {node: '>=10'}
+
+  /safe-stable-stringify@2.5.0:
+    resolution: {integrity: sha512-b3rppTKm9T+PsVCBEOUR46GWI7fdOs00VKZ1+9c1EWDaDMvjQc6tUwuFyIprgGgTcWoVHSKrU8H31ZHA2e0RHA==}
     engines: {node: '>=10'}
 
   /safer-buffer@2.1.2:
@@ -2772,6 +2812,20 @@ packages:
       normalize-path: 3.0.0
       safe-stable-stringify: 2.4.3
       typescript: 5.3.3
+    dev: true
+
+  /ts-json-schema-generator@1.5.1:
+    resolution: {integrity: sha512-apX5qG2+NA66j7b4AJm8q/DpdTeOsjfh7A3LpKsUiil0FepkNwtN28zYgjrsiiya2/OPhsr/PSjX5FUYg79rCg==}
+    engines: {node: '>=10.0.0'}
+    hasBin: true
+    dependencies:
+      '@types/json-schema': 7.0.15
+      commander: 12.1.0
+      glob: 8.1.0
+      json5: 2.2.3
+      normalize-path: 3.0.0
+      safe-stable-stringify: 2.5.0
+      typescript: 5.4.5
 
   /ts-writer@1.3.1(typescript@5.4.5):
     resolution: {integrity: sha512-I/uvF/evEuXr0ym7imZnmRDiPeuBpFrj4Zsk8gJyIW3kca8uMLbImnwPQzrsOCQ8JjLQuWSLSJqn0VBfRVWl9A==}
@@ -2813,6 +2867,7 @@ packages:
     resolution: {integrity: sha512-pXWcraxM0uxAS+tN0AG/BF2TyqmHO014Z070UsJ+pFvYuRSq8KH8DmWpnbXe0pEPDHXZV3FcAbJkijJ5oNEnWw==}
     engines: {node: '>=14.17'}
     hasBin: true
+    dev: true
 
   /typescript@5.4.5:
     resolution: {integrity: sha512-vcI4UpRgg81oIRUFwR0WSIHKt11nJ7SAVlYNIu+QpqeyXP+gpQJy/Z4+F0aGxSE4MqwjyXvW/TzgkLAx2AGHwQ==}
